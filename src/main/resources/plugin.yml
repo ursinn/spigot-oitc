@@ -1,0 +1,10 @@
+name: OITC
+version: ${project.version}
+main: net.crazycraftland.spigot.oitc.OITC
+prefix: OITC
+authors: [ursinn, artish1]
+description: One in the Camber
+website: https://dev.CrazyCraftLand.net/Spigot/OITC
+commands:
+  oitc:
+    description: The main command for OITC(One in the Chamber)
