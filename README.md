@@ -1,5 +1,6 @@
 # OITC
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/4035e2f5792e45789e299b1e04a125a4)](https://app.codacy.com/app/ursin.filli/Spigot-OITC?utm_source=github.com&utm_medium=referral&utm_content=ursinn/Spigot-OITC&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://travis-ci.com/ursinn/Spigot-OITC.svg?branch=master)](https://travis-ci.com/ursinn/Spigot-OITC)
 [![Build Status](https://ci.filli-it.ch/job/ursinn/job/Spigot-OITC/job/master/badge/icon)](https://ci.filli-it.ch/job/ursinn/job/Spigot-OITC/job/master/)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
