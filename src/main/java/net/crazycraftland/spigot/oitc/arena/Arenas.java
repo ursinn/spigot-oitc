@@ -67,6 +67,15 @@ public class Arenas {
         }
     }
 
+    public static void delArena(Arena arena) {
+        if (arenas.containsKey(arena.getName())) {
+            arenas.remove(arena.getName());
+            if (list.contains(arena)) {
+                list.remove(arena);
+            }
+        }
+    }
+
     public static void addArena(Player player, Arena arena) {
         if (!playerArena.containsKey(player.getName())) {
             playerArena.put(player.getName(), arena);

@@ -171,6 +171,11 @@ public class CommandOITC implements CommandExecutor {
 
                         Methods.saveYamls();
                         plugin.saveConfig();
+                        if (Arenas.arenaExists(args[1])) {
+                            Arena arena = Arenas.getArena(args[1]);
+                            arena.stop();
+                            Arenas.delArena(arena);
+                        }
                         OITC.sendMessage(player, "You have deleted " + ChatColor.DARK_RED + args[1]);
                     } else {
                         OITC.sendMessage(player, "Sorry, there is no such arena named " + ChatColor.RED + args[1]);
