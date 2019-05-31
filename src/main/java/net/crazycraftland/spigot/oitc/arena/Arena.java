@@ -86,7 +86,7 @@ public class Arena {
             inventory.remove(player.getUniqueId());
         }
 
-        if(gamemode.containsKey(player.getUniqueId())) {
+        if (gamemode.containsKey(player.getUniqueId())) {
             player.setGameMode(gamemode.get(player.getUniqueId()));
             gamemode.remove(player.getUniqueId());
         }
@@ -193,23 +193,6 @@ public class Arena {
         Methods.saveYamls();
     }
 
-    @SuppressWarnings("unused")
-    private void timeCheck() {
-        //TODO: Remove Suppress warnings when using.
-        this.timecheckid = Bukkit.getScheduler().scheduleSyncRepeatingTask(this.plugin, new Runnable() {
-            public void run() {
-                if (Arena.this.getState() == GameState.INGAME) {
-                    Arena.this.check();
-                } else {
-                    Bukkit.getScheduler().cancelTask(Arena.this.timecheckid);
-                }
-            }
-        }, 400L, 20L);
-    }
-
-    private void check() {
-    }
-
     private Location getLobbySpawn() {
         if (this.plugin.arenas.contains("Arenas." + getName() + ".Lobby.Spawn" + ".World")) {
             Location loc = new Location(Bukkit.getWorld(this.plugin.arenas.getString("Arenas." + getName() + ".Lobby.Spawn" + ".World")),
@@ -226,7 +209,6 @@ public class Arena {
     public boolean isOn() {
         return (getState() == GameState.INGAME) || getState() == GameState.STOPPING;
     }
-
 
     public List<UUID> getPlayers() {
         return this.players;
@@ -415,7 +397,6 @@ public class Arena {
                     }
                 }
 
-
                 sign.update();
             }
         }
@@ -506,7 +487,6 @@ public class Arena {
 
     }
 
-
     public boolean hasPlayer(Player player) {
         return players.contains(player.getUniqueId());
     }
@@ -529,7 +509,6 @@ public class Arena {
                     player.setFoodLevel(20);
 
                 }
-
 
             } else {
 
@@ -554,7 +533,6 @@ public class Arena {
         if (this.players.contains(player.getUniqueId())) {
             this.players.remove(player.getUniqueId());
         }
-
 
         loadInventory(player);
         if (reason == LeaveReason.QUIT) {
