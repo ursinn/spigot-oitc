@@ -57,7 +57,7 @@ public class OITC extends JavaPlugin {
         String ver = Bukkit.getServer().getClass().getPackage().getName();
         ver = ver.substring(ver.lastIndexOf('.') + 1);
         if (!Methods.getVersions().containsKey(ver)) {
-            System.err.println("unsupported Minecraft Server version!");
+            System.err.println("unsupported Minecraft Server version! (" + ver + ")");
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
