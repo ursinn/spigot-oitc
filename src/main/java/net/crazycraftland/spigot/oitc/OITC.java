@@ -45,12 +45,16 @@ import java.util.logging.Logger;
 public class OITC extends JavaPlugin {
 
     private final Logger logger = Logger.getLogger("Minecraft");
-    private final Methods m = new Methods(this);
+    private final Methods methods = new Methods(this);
     private final GameListener gl = new GameListener(this);
     private final SignListener sl = new SignListener();
 
     public File arenasFile;
     public FileConfiguration arenas;
+    public File optionsFile;
+    public FileConfiguration options;
+    public File languageFile;
+    public FileConfiguration language;
 
     @Override
     public void onEnable() {
@@ -67,11 +71,17 @@ public class OITC extends JavaPlugin {
 
         this.arenasFile = new File(getDataFolder(), "arenas.yml");
         this.arenas = new YamlConfiguration();
+        this.optionsFile = new File(getDataFolder(), "arenas.yml");
+        this.options = new YamlConfiguration();
+        this.languageFile = new File(getDataFolder(), "arenas.yml");
+        this.language = new YamlConfiguration();
 
-        Methods.firstRun();
-        Methods.loadYamls();
+        methods.firstRun();
+        methods.loadYamls();
 
         this.arenas.options().copyDefaults(true);
+        this.options.options().copyDefaults(true);
+        this.language.options().copyDefaults(true);
         getConfig().options().copyDefaults(true);
 
         System.out.println("Loaded YML files Successfully!");

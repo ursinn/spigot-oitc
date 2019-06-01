@@ -156,23 +156,33 @@ public class Methods {
     public static void saveYamls() {
         try {
             plugin.arenas.save(plugin.arenasFile);
+            plugin.options.save(plugin.optionsFile);
+            plugin.language.save(plugin.languageFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void loadYamls() {
+    public void loadYamls() {
         try {
             plugin.arenas.load(plugin.arenasFile);
+            plugin.options.load(plugin.optionsFile);
+            plugin.language.load(plugin.languageFile);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void firstRun() {
+    public void firstRun() {
         try {
             if (!plugin.arenasFile.exists()) {
                 plugin.arenas.save(plugin.arenasFile);
+            }
+            if (!plugin.optionsFile.exists()) {
+                plugin.options.save(plugin.optionsFile);
+            }
+            if (!plugin.languageFile.exists()) {
+                plugin.language.save(plugin.languageFile);
             }
         } catch (Exception e) {
             e.printStackTrace();
