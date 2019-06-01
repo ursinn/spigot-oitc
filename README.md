@@ -64,4 +64,4 @@ This plugin utilizes bStats plugin metrics system, which means that the followin
 * bStats-supported plugins
 * Plugin version of bStats-supported plugins
 
-![Metrcis](https://bstats.org/signatures/bukkit/OITC.svg)
+[![Metrcis](https://bstats.org/signatures/bukkit/OITC.svg)](https://bstats.org/plugin/bukkit/OITC)
