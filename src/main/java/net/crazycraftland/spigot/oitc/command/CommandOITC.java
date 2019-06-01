@@ -36,6 +36,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CommandOITC implements CommandExecutor {
 
     private OITC plugin;
@@ -151,6 +154,18 @@ public class CommandOITC implements CommandExecutor {
                         plugin.getConfig().addDefault(args[1] + ".KillsToWin", 25);
                         plugin.getConfig().addDefault(args[1] + ".AutoStartPlayers", 8);
                         plugin.getConfig().addDefault(args[1] + ".EndTime", 600);
+
+                        List<String> list = new ArrayList<>();
+                        List<String> list2 = new ArrayList<>();
+                        List<String> list3 = new ArrayList<>();
+                        List<String> list4 = new ArrayList<>();
+                        List<String> list5 = new ArrayList<>();
+                        plugin.getConfig().addDefault(args[1] + ".GameEnd.Arena", list);
+                        plugin.getConfig().addDefault(args[1] + ".GameEnd.User", list2);
+                        plugin.getConfig().addDefault(args[1] + ".GameEnd.Place.1", list3);
+                        plugin.getConfig().addDefault(args[1] + ".GameEnd.Place.2", list4);
+                        plugin.getConfig().addDefault(args[1] + ".GameEnd.Place.3", list5);
+
                         Arena arena = new Arena(args[1]);
                         Arenas.addArena(arena);
                         Methods.addToList(arena);

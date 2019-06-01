@@ -31,6 +31,7 @@ import net.crazycraftland.spigot.oitc.command.CommandOITC;
 import net.crazycraftland.spigot.oitc.listeners.GameListener;
 import net.crazycraftland.spigot.oitc.listeners.SignListener;
 import net.crazycraftland.spigot.oitc.utils.Methods;
+import net.crazycraftland.spigot.oitc.utils.Options;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -49,6 +50,8 @@ public class OITC extends JavaPlugin {
     private final GameListener gl = new GameListener(this);
     private final SignListener sl = new SignListener();
 
+    private static OITC instance;
+
     public File arenasFile;
     public FileConfiguration arenas;
     public File optionsFile;
@@ -58,22 +61,24 @@ public class OITC extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        instance = this;
+
         String ver = Bukkit.getServer().getClass().getPackage().getName();
         ver = ver.substring(ver.lastIndexOf('.') + 1);
         if (!Methods.getVersions().containsKey(ver)) {
-            System.err.println("unsupported Minecraft Server version! (" + ver + ")");
+            this.logger.info("[OITC] unsupported Minecraft Server version! (" + ver + ")");
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
 
         //*********** CONFIG FILES *****************
-        System.out.println("Loading YML files!");
+        this.logger.info("[OITC] Loading YML files!");
 
         this.arenasFile = new File(getDataFolder(), "arenas.yml");
         this.arenas = new YamlConfiguration();
-        this.optionsFile = new File(getDataFolder(), "arenas.yml");
+        this.optionsFile = new File(getDataFolder(), "options.yml");
         this.options = new YamlConfiguration();
-        this.languageFile = new File(getDataFolder(), "arenas.yml");
+        this.languageFile = new File(getDataFolder(), "language.yml");
         this.language = new YamlConfiguration();
 
         methods.firstRun();
@@ -84,7 +89,10 @@ public class OITC extends JavaPlugin {
         this.language.options().copyDefaults(true);
         getConfig().options().copyDefaults(true);
 
-        System.out.println("Loaded YML files Successfully!");
+        new Options().setDefaults();
+        new Options().loadOptions();
+
+        this.logger.info("[OITC] Loaded YML files Successfully!");
         //*********** LISTENERS *****************
         getServer().getPluginManager().registerEvents(gl, this);
         getServer().getPluginManager().registerEvents(sl, this);
@@ -117,5 +125,9 @@ public class OITC extends JavaPlugin {
 
     public static void sendMessage(Player player, String Message) {
         player.sendMessage(ChatColor.GRAY + "[" + ChatColor.AQUA + "OITC" + ChatColor.GRAY + "] " + ChatColor.GRAY + Message);
+    }
+
+    public static OITC getInstance() {
+        return instance;
     }
 }

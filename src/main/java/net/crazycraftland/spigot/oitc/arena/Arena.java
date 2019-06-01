@@ -27,11 +27,13 @@ package net.crazycraftland.spigot.oitc.arena;
 
 import net.crazycraftland.spigot.oitc.OITC;
 import net.crazycraftland.spigot.oitc.utils.Methods;
+import net.crazycraftland.spigot.oitc.utils.Options;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.block.Sign;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -51,7 +53,6 @@ public class Arena {
     private boolean endtimeOn = false;
     private OITC plugin;
     private List<UUID> players = new ArrayList<>();
-    private int timecheckid = 0;
     private Scoreboard scoreboard;
 
     public Arena(String Name) {
@@ -314,7 +315,6 @@ public class Arena {
     }
 
     public void stop() {
-
         if (getState() == GameState.STARTING) {
             Bukkit.getScheduler().cancelTask(id);
         }
@@ -326,6 +326,8 @@ public class Arena {
         if (this.endtimeOn) {
             Bukkit.getScheduler().cancelTask(this.endtime);
         }
+
+        Options options = new Options();
         for (UUID s : players) {
             if (Bukkit.getPlayer(s) != null) {
                 Player player = Bukkit.getPlayer(s);
@@ -341,17 +343,38 @@ public class Arena {
                 player.sendMessage(ChatColor.GREEN + "We hope you had fun :)");
                 OITC.sendMessage(player, "You have been teleported back to the Main Lobby.");
                 Arenas.removeArena(player);
+
+                if (options.getGameEnd_User() != null) {
+                    for (String cmd : options.getGameEnd_User()) {
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+                    }
+                }
+                if (getGameEnd_User() != null) {
+                    for (String cmd : getGameEnd_User()) {
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+                    }
+                }
+
+                //TODO
             }
         }
 
+        if (options.getGameEnd_Arena() != null) {
+            for (String cmd : options.getGameEnd_Arena()) {
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+            }
+        }
+        if (getGameEnd_Arena() != null) {
+            for (String cmd : getGameEnd_Arena()) {
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+            }
+        }
 
-        // olist.clear();
         this.players.clear();
         this.endtimeOn = false;
 
         setState(GameState.LOBBY);
         updateSigns();
-
     }
 
     public int getKillsToWin() {
@@ -583,4 +606,25 @@ public class Arena {
         }
         return false;
     }
+
+    private List<String> getGameEnd_Arena() {
+        return this.plugin.getConfig().getStringList(getName() + ".GameEnd.Arena");
+    }
+
+    private List<String> getGameEnd_User() {
+        return this.plugin.getConfig().getStringList(getName() + ".GameEnd.User");
+    }
+
+    private List<String> getGameEnd_Place1() {
+        return this.plugin.getConfig().getStringList(getName() + ".GameEnd.Place.1");
+    }
+
+    private List<String> getGameEnd_Place2() {
+        return this.plugin.getConfig().getStringList(getName() + ".GameEnd.Place.2");
+    }
+
+    private List<String> getGameEnd_Place3() {
+        return this.plugin.getConfig().getStringList(getName() + ".GameEnd.Place.3");
+    }
+
 }
