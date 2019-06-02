@@ -36,10 +36,7 @@ import org.bukkit.block.Sign;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.ScoreboardManager;
+import org.bukkit.scoreboard.*;
 
 import java.util.*;
 
@@ -315,6 +312,7 @@ public class Arena {
     }
 
     public void stop() {
+        GameState gs = getState();
         if (getState() == GameState.STARTING) {
             Bukkit.getScheduler().cancelTask(id);
         }
@@ -327,7 +325,14 @@ public class Arena {
             Bukkit.getScheduler().cancelTask(this.endtime);
         }
 
-        Options options = new Options();
+        Options options = plugin.op;
+        Player first_player = null;
+        int first_kills = 0;
+        Player second_player = null;
+        int second_kills = 0;
+        Player third_player = null;
+        int third_kills = 0;
+
         for (UUID s : players) {
             if (Bukkit.getPlayer(s) != null) {
                 Player player = Bukkit.getPlayer(s);
@@ -339,34 +344,115 @@ public class Arena {
 
                 player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
                 loadInventory(player);
-                player.teleport(Methods.getLobby());
                 player.sendMessage(ChatColor.GREEN + "We hope you had fun :)");
                 OITC.sendMessage(player, "You have been teleported back to the Main Lobby.");
                 Arenas.removeArena(player);
 
-                if (options.getGameEnd_User() != null) {
-                    for (String cmd : options.getGameEnd_User()) {
-                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+                if (gs == GameState.INGAME) {
+                    if (options.getGameEnd_User() != null) {
+                        for (String cmd : options.getGameEnd_User()) {
+                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replaceAll("%player%", player.getName()));
+                        }
                     }
-                }
-                if (getGameEnd_User() != null) {
-                    for (String cmd : getGameEnd_User()) {
-                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+                    if (getGameEnd_User() != null) {
+                        for (String cmd : getGameEnd_User()) {
+                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replaceAll("%player%", player.getName()));
+                        }
                     }
-                }
 
-                //TODO
+                    int kills = scoreboard.getObjective(DisplaySlot.SIDEBAR).getScore(player).getScore();
+                    if (kills > first_kills) {
+                        if (first_player == null) {
+                            first_kills = kills;
+                            first_player = player;
+                        } else {
+                            if (second_player == null) {
+                                second_kills = first_kills;
+                                second_player = first_player;
+                                first_kills = kills;
+                                first_player = player;
+                            } else {
+                                third_kills = second_kills;
+                                third_player = second_player;
+                                second_kills = first_kills;
+                                second_player = first_player;
+                                first_kills = kills;
+                                first_player = player;
+                            }
+                        }
+                    } else if (kills > second_kills) {
+                        if (second_player == null) {
+                            second_kills = kills;
+                            second_player = player;
+                        } else {
+                            third_kills = second_kills;
+                            third_player = second_player;
+                            second_kills = kills;
+                            second_player = player;
+                        }
+                    } else if (kills > third_kills) {
+                        third_kills = kills;
+                        third_player = player;
+                    }
+                }
             }
         }
 
-        if (options.getGameEnd_Arena() != null) {
-            for (String cmd : options.getGameEnd_Arena()) {
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+        if (gs == GameState.INGAME) {
+            if (options.getGameEnd_Place1() != null) {
+                if (first_player != null) {
+                    for (String cmd : options.getGameEnd_Place1()) {
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replaceAll("%player%", first_player.getName()));
+                    }
+                }
             }
-        }
-        if (getGameEnd_Arena() != null) {
-            for (String cmd : getGameEnd_Arena()) {
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+            if (getGameEnd_Place1() != null) {
+                if (first_player != null) {
+                    for (String cmd : getGameEnd_Place1()) {
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replaceAll("%player%", first_player.getName()));
+                    }
+                }
+            }
+
+            if (options.getGameEnd_Place2() != null) {
+                if (second_player != null) {
+                    for (String cmd : options.getGameEnd_Place2()) {
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replaceAll("%player%", second_player.getName()));
+                    }
+                }
+            }
+            if (getGameEnd_Place2() != null) {
+                if (second_player != null) {
+                    for (String cmd : getGameEnd_Place2()) {
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replaceAll("%player%", second_player.getName()));
+                    }
+                }
+            }
+
+            if (options.getGameEnd_Place3() != null) {
+                if (third_player != null) {
+                    for (String cmd : options.getGameEnd_Place3()) {
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replaceAll("%player%", third_player.getName()));
+                    }
+                }
+            }
+            if (getGameEnd_Place3() != null) {
+                if (third_player != null) {
+                    for (String cmd : getGameEnd_Place3()) {
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replaceAll("%player%", third_player.getName()));
+                    }
+                }
+            }
+
+            if (options.getGameEnd_Arena() != null) {
+                for (String cmd : options.getGameEnd_Arena()) {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+                }
+            }
+            if (getGameEnd_Arena() != null) {
+                for (String cmd : getGameEnd_Arena()) {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+                }
             }
         }
 

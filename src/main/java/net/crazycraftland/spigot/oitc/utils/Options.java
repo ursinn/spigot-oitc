@@ -39,28 +39,35 @@ public class Options {
     private List<String> GameEnd_Place2;
     private List<String> GameEnd_Place3;
 
+    private OITC plugin;
+
+    public Options(OITC plugin) {
+        this.plugin = plugin;
+    }
+
     public void setDefaults() {
         List<String> list = new ArrayList<>();
         List<String> list2 = new ArrayList<>();
         List<String> list3 = new ArrayList<>();
         List<String> list4 = new ArrayList<>();
         List<String> list5 = new ArrayList<>();
-        OITC.getInstance().options.addDefault("BungeeMode", false);
-        OITC.getInstance().options.addDefault("GameEnd.Arena", list);
-        OITC.getInstance().options.addDefault("GameEnd.User", list2);
-        OITC.getInstance().options.addDefault("GameEnd.Place.1", list3);
-        OITC.getInstance().options.addDefault("GameEnd.Place.2", list4);
-        OITC.getInstance().options.addDefault("GameEnd.Place.3", list5);
+        list.add("");
+        this.plugin.options.addDefault("BungeeMode", false);
+        this.plugin.options.addDefault("GameEnd.Arena", list);
+        this.plugin.options.addDefault("GameEnd.User", list2);
+        this.plugin.options.addDefault("GameEnd.Place.1", list3);
+        this.plugin.options.addDefault("GameEnd.Place.2", list4);
+        this.plugin.options.addDefault("GameEnd.Place.3", list5);
         Methods.saveYamls();
     }
 
     public void loadOptions() {
-        this.BungeeMode = OITC.getInstance().options.getBoolean("BungeeMode");
-        this.GameEnd_Arena = OITC.getInstance().options.getStringList("GameEnd.Arena");
-        this.GameEnd_User = OITC.getInstance().options.getStringList("GameEnd.User");
-        this.GameEnd_Place1 = OITC.getInstance().options.getStringList("GameEnd.Place.1");
-        this.GameEnd_Place2 = OITC.getInstance().options.getStringList("GameEnd.Place.2");
-        this.GameEnd_Place3 = OITC.getInstance().options.getStringList("GameEnd.Place.3");
+        this.BungeeMode = this.plugin.options.getBoolean("BungeeMode");
+        this.GameEnd_Arena = this.plugin.options.getStringList("GameEnd.Arena");
+        this.GameEnd_User = this.plugin.options.getStringList("GameEnd.User");
+        this.GameEnd_Place1 = this.plugin.options.getStringList("GameEnd.Place.1");
+        this.GameEnd_Place2 = this.plugin.options.getStringList("GameEnd.Place.2");
+        this.GameEnd_Place3 = this.plugin.options.getStringList("GameEnd.Place.3");
     }
 
     public boolean isBungeeMode() {

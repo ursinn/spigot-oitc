@@ -108,6 +108,7 @@ public class CommandOITC implements CommandExecutor {
                 if (args[0].equalsIgnoreCase("reload")) {
                     new Methods(plugin).loadYamls();
                     plugin.reloadConfig();
+                    plugin.op.loadOptions();
                     for (Arena arena : Arenas.getArenas()) {
                         arena.updateSigns();
                     }

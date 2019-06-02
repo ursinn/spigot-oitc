@@ -49,8 +49,7 @@ public class OITC extends JavaPlugin {
     private final Methods methods = new Methods(this);
     private final GameListener gl = new GameListener(this);
     private final SignListener sl = new SignListener();
-
-    private static OITC instance;
+    public final  Options op = new Options(this);
 
     public File arenasFile;
     public FileConfiguration arenas;
@@ -61,8 +60,6 @@ public class OITC extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        instance = this;
-
         String ver = Bukkit.getServer().getClass().getPackage().getName();
         ver = ver.substring(ver.lastIndexOf('.') + 1);
         if (!Methods.getVersions().containsKey(ver)) {
@@ -89,8 +86,8 @@ public class OITC extends JavaPlugin {
         this.language.options().copyDefaults(true);
         getConfig().options().copyDefaults(true);
 
-        new Options().setDefaults();
-        new Options().loadOptions();
+        op.setDefaults();
+        op.loadOptions();
 
         this.logger.info("[OITC] Loaded YML files Successfully!");
         //*********** LISTENERS *****************
@@ -127,7 +124,4 @@ public class OITC extends JavaPlugin {
         player.sendMessage(ChatColor.GRAY + "[" + ChatColor.AQUA + "OITC" + ChatColor.GRAY + "] " + ChatColor.GRAY + Message);
     }
 
-    public static OITC getInstance() {
-        return instance;
-    }
 }
