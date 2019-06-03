@@ -132,8 +132,6 @@ public class GameListener implements Listener {
             Methods.setDefaultGameInventory(player);
             player.updateInventory();
         }
-
-
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -155,11 +153,9 @@ public class GameListener implements Listener {
                 if (player.getKiller() != null) {
                     Player killer = player.getKiller();
                     onPlayerKill(killer, player);
-
                 }
             }
         }
-
     }
 
     @EventHandler
@@ -175,7 +171,6 @@ public class GameListener implements Listener {
         arena.removePlayer(player, LeaveReason.QUIT);
 
     }
-
 
     public void onPlayerKill(Player killer, Player player) {
         Arena arena = Arenas.getArena(killer);
@@ -204,7 +199,6 @@ public class GameListener implements Listener {
 
             arena.sendAll(ChatColor.GREEN + "================" + ChatColor.GRAY + "[" + ChatColor.AQUA + "OITC" + ChatColor.GRAY + "]" + ChatColor.GREEN + "================");
 
-
             arena.sendAll(ChatColor.RED + killer.getName() + ChatColor.GRAY +
                     " Has reached the kill goal of " + ChatColor.GOLD + arena.getKillsToWin() + ChatColor.GRAY +
                     " and has won in the Arena: " + ChatColor.AQUA + arena.getName());
@@ -213,10 +207,7 @@ public class GameListener implements Listener {
             arena.sendAll("");
             arena.sendAll("");
 
-
             arena.stop();
-
-
         }
 
     }
@@ -240,14 +231,9 @@ public class GameListener implements Listener {
                     OITC.sendMessage(player, "You cannot do any other commands besides the default /oitc commands");
                     OITC.sendMessage(player, "if you would like to leave, please do " + ChatColor.RED + "/oitc leave , OR /oitc lobby");
                 }
-
-
             }
         }
-
-
     }
-
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e) {

@@ -29,9 +29,11 @@ import net.crazycraftland.spigot.oitc.arena.Arena;
 import net.crazycraftland.spigot.oitc.arena.Arenas;
 import net.crazycraftland.spigot.oitc.command.CommandOITC;
 import net.crazycraftland.spigot.oitc.listeners.GameListener;
+import net.crazycraftland.spigot.oitc.listeners.PlayerJoin;
 import net.crazycraftland.spigot.oitc.listeners.SignListener;
 import net.crazycraftland.spigot.oitc.utils.Methods;
 import net.crazycraftland.spigot.oitc.utils.Options;
+import net.crazycraftland.spigot.oitc.utils.UpdateChecker;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -47,9 +49,10 @@ public class OITC extends JavaPlugin {
 
     private final Logger logger = Logger.getLogger("Minecraft");
     private final Methods methods = new Methods(this);
-    private final GameListener gl = new GameListener(this);
-    private final SignListener sl = new SignListener();
-    public final  Options op = new Options(this);
+    public final Options op = new Options(this);
+    public final UpdateChecker updateChecker = new UpdateChecker(67880, this);
+
+    public static boolean devBuild = false;
 
     public File arenasFile;
     public FileConfiguration arenas;
@@ -91,13 +94,17 @@ public class OITC extends JavaPlugin {
 
         this.logger.info("[OITC] Loaded YML files Successfully!");
         //*********** LISTENERS *****************
-        getServer().getPluginManager().registerEvents(gl, this);
-        getServer().getPluginManager().registerEvents(sl, this);
+        getServer().getPluginManager().registerEvents(new GameListener(this), this);
+        getServer().getPluginManager().registerEvents(new SignListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerJoin(this), this);
         //*********** COMMANDS *****************
         CommandOITC commandOITC = new CommandOITC(this);
         getCommand("oitc").setExecutor(commandOITC);
         //*************************************
-        Metrics metrics = new Metrics(this);
+        if (!devBuild) {
+            Metrics metrics = new Metrics(this);
+            updateChecker.checkUpdates.start();
+        }
 
         try {
             for (String s : this.arenas.getStringList("Arenas.List")) {
