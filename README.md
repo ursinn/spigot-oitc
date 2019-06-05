@@ -50,6 +50,8 @@
 * **AutoStartPlayers: 8** The amount of players needed to join the arena until the arena Automatically starts by itself
 * **EndTime: 600** The Amount of seconds the Arena will run for, By default is 10 Minutes (600 seconds), so after 10 minutes, if nobody gets to the KillsToWin amount, it will then stop itself.
 
+**[Advanced Config](https://github.com/ursinn/Spigot-OITC/tree/master/Advanced-Config)**
+
 ## **Metrics**
 This plugin utilizes bStats plugin metrics system, which means that the following information is collected and sent to bstats.org:
 * Your server's randomly generated UUID
