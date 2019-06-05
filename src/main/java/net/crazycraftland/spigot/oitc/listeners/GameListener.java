@@ -166,7 +166,8 @@ public class GameListener implements Listener {
         }
 
         Arena arena = Arenas.getArena(player);
-        player.teleport(Methods.getLobby());
+        if (Methods.getLobby() != null)
+            player.teleport(Methods.getLobby());
         player.getInventory().clear();
         arena.removePlayer(player, LeaveReason.QUIT);
 

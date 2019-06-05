@@ -27,11 +27,13 @@ package net.crazycraftland.spigot.oitc.utils;
 
 import net.crazycraftland.spigot.oitc.OITC;
 import net.crazycraftland.spigot.oitc.arena.Arena;
+import net.crazycraftland.spigot.oitc.arena.Arenas;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,10 +58,25 @@ public class Methods {
     }
 
     public static void setDefaultGameInventory(Player player) {
+        Arena arena = Arenas.getArena(player);
 
         ItemStack bow = new ItemStack(Material.BOW, 1);
         ItemStack arrow = new ItemStack(Material.ARROW, 1);
         ItemStack sword = new ItemStack(getSwordMaterial(), 1);
+        ItemMeta swordMeta = sword.getItemMeta();
+        if (arena != null) {
+            if (plugin.op.getSwordEnchantments() != null) {
+                for (SwordEnchantment s : plugin.op.getSwordEnchantments()) {
+                    swordMeta.addEnchant(s.getEnchantment(), s.getLevel(), s.isIgnore());
+                }
+            }
+            if (arena.getSwordEnchantments() != null) {
+                for (SwordEnchantment s : arena.getSwordEnchantments()) {
+                    swordMeta.addEnchant(s.getEnchantment(), s.getLevel(), s.isIgnore());
+                }
+            }
+        }
+        sword.setItemMeta(swordMeta);
         player.getInventory().clear();
 
         player.getInventory().addItem(sword);

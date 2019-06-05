@@ -26,6 +26,7 @@
 package net.crazycraftland.spigot.oitc.utils;
 
 import net.crazycraftland.spigot.oitc.OITC;
+import org.bukkit.enchantments.Enchantment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,8 @@ import java.util.List;
 public class Options {
 
     private boolean BungeeMode;
+    private boolean useMetrics;
+    private boolean updateCheck;
     private List<String> GameEnd_Arena;
     private List<String> GameEnd_User;
     private List<String> GameEnd_Place1;
@@ -53,16 +56,26 @@ public class Options {
         List<String> list5 = new ArrayList<>();
         list.add("");
         this.plugin.options.addDefault("BungeeMode", false);
+        this.plugin.options.addDefault("Metrics", true);
+        this.plugin.options.addDefault("UpdateCheck", true);
         this.plugin.options.addDefault("GameEnd.Arena", list);
         this.plugin.options.addDefault("GameEnd.User", list2);
         this.plugin.options.addDefault("GameEnd.Place.1", list3);
         this.plugin.options.addDefault("GameEnd.Place.2", list4);
         this.plugin.options.addDefault("GameEnd.Place.3", list5);
+        this.plugin.options.addDefault("Enchantment.KNOCKBACK.use", false);
+        this.plugin.options.addDefault("Enchantment.KNOCKBACK.level", 1);
+        this.plugin.options.addDefault("Enchantment.DAMAGE_ALL.use", false);
+        this.plugin.options.addDefault("Enchantment.DAMAGE_ALL.level", 4);
+        this.plugin.options.addDefault("Enchantment.DURABILITY.use", false);
+        this.plugin.options.addDefault("Enchantment.DURABILITY.level", 3);
         Methods.saveYamls();
     }
 
     public void loadOptions() {
         this.BungeeMode = this.plugin.options.getBoolean("BungeeMode");
+        this.useMetrics = this.plugin.options.getBoolean("Metrics");
+        this.updateCheck = this.plugin.options.getBoolean("UpdateCheck");
         this.GameEnd_Arena = this.plugin.options.getStringList("GameEnd.Arena");
         this.GameEnd_User = this.plugin.options.getStringList("GameEnd.User");
         this.GameEnd_Place1 = this.plugin.options.getStringList("GameEnd.Place.1");
@@ -72,6 +85,14 @@ public class Options {
 
     public boolean isBungeeMode() {
         return BungeeMode;
+    }
+
+    public boolean isUseMetrics() {
+        return useMetrics;
+    }
+
+    public boolean isUpdateCheck() {
+        return updateCheck;
     }
 
     public List<String> getGameEnd_Arena() {
@@ -92,5 +113,17 @@ public class Options {
 
     public List<String> getGameEnd_Place3() {
         return GameEnd_Place3;
+    }
+
+    public List<SwordEnchantment> getSwordEnchantments() {
+        List<SwordEnchantment> list = new ArrayList<>();
+        for (Enchantment e : Enchantment.values()) {
+            boolean b = this.plugin.options.getBoolean("Enchantment." + e.getName() + ".use");
+            if (b) {
+                int level = this.plugin.options.getInt("Enchantment." + e.getName() + ".level");
+                list.add(new SwordEnchantment(e, level));
+            }
+        }
+        return list;
     }
 }

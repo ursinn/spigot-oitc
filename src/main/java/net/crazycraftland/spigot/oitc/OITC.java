@@ -102,8 +102,10 @@ public class OITC extends JavaPlugin {
         getCommand("oitc").setExecutor(commandOITC);
         //*************************************
         if (!devBuild) {
-            Metrics metrics = new Metrics(this);
-            updateChecker.checkUpdates.start();
+            if (op.isUseMetrics())
+                new Metrics(this);
+            if (op.isUpdateCheck())
+                updateChecker.checkUpdates.start();
         }
 
         try {

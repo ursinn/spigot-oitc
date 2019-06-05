@@ -166,6 +166,12 @@ public class CommandOITC implements CommandExecutor {
                         plugin.getConfig().addDefault(args[1] + ".GameEnd.Place.1", list3);
                         plugin.getConfig().addDefault(args[1] + ".GameEnd.Place.2", list4);
                         plugin.getConfig().addDefault(args[1] + ".GameEnd.Place.3", list5);
+                        plugin.getConfig().addDefault(args[1] + ".Enchantment.KNOCKBACK.use", false);
+                        plugin.getConfig().addDefault(args[1] + ".Enchantment.KNOCKBACK.level", 1);
+                        plugin.getConfig().addDefault(args[1] + ".Enchantment.DAMAGE_ALL.use", false);
+                        plugin.getConfig().addDefault(args[1] + ".Enchantment.DAMAGE_ALL.level", 4);
+                        plugin.getConfig().addDefault(args[1] + ".Enchantment.DURABILITY.use", false);
+                        plugin.getConfig().addDefault(args[1] + ".Enchantment.DURABILITY.level", 3);
 
                         Arena arena = new Arena(args[1]);
                         Arenas.addArena(arena);

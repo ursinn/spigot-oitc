@@ -28,11 +28,13 @@ package net.crazycraftland.spigot.oitc.arena;
 import net.crazycraftland.spigot.oitc.OITC;
 import net.crazycraftland.spigot.oitc.utils.Methods;
 import net.crazycraftland.spigot.oitc.utils.Options;
+import net.crazycraftland.spigot.oitc.utils.SwordEnchantment;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.block.Sign;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -633,7 +635,6 @@ public class Arena {
                 if (canStart()) {
                     start();
                 }
-
             }
 
             updateSigns();
@@ -713,6 +714,18 @@ public class Arena {
 
     private List<String> getGameEnd_Place3() {
         return this.plugin.getConfig().getStringList(getName() + ".GameEnd.Place.3");
+    }
+
+    public List<SwordEnchantment> getSwordEnchantments() {
+        List<SwordEnchantment> list = new ArrayList<>();
+        for (Enchantment e : Enchantment.values()) {
+            boolean b = this.plugin.getConfig().getBoolean(getName() + ".Enchantment." + e.getName() + ".use");
+            if (b) {
+                int level = this.plugin.getConfig().getInt(getName() + ".Enchantment." + e.getName() + ".level");
+                list.add(new SwordEnchantment(e, level));
+            }
+        }
+        return list;
     }
 
 }
