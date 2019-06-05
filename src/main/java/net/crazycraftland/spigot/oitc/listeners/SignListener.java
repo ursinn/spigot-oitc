@@ -123,18 +123,16 @@ public class SignListener implements Listener {
                 for (Arena arena : Arenas.getArenas()) {
                     if (sign.getLine(1).equalsIgnoreCase(ChatColor.BOLD + arena.getName())) {
                         if (!arena.hasPlayer(player)) {
-                            //if(!arena.isOn()){
-                            if (arena.getMaxPlayers() > arena.getPlayers().size()) {
-                                arena.addPlayer(player);
+                            if (!arena.isOn()) {
+                                if (arena.getMaxPlayers() > arena.getPlayers().size()) {
+                                    arena.addPlayer(player);
+                                } else {
+                                    player.sendMessage(ChatColor.RED + "Sorry! That Arena is full!");
+                                }
                             } else {
-                                player.sendMessage(ChatColor.RED + "Sorry! That Arena is full!");
+                                player.sendMessage(ChatColor.RED + "Sorry! That Arena is " + arena.getState().toString());
                             }
-
-                            //}else{
-                            //player.sendMessage(ChatColor.RED + "Sorry! That Arena is " + arena.getState().toString());
-                            //}
                         }
-
                         break;
                     }
                 }
