@@ -180,6 +180,10 @@ public class CommandOITC implements CommandExecutor {
                         plugin.getConfig().addDefault(args[1] + ".Sword.ItemFlag.HIDE_ENCHANTS.use", false);
                         plugin.getConfig().addDefault(args[1] + ".Sword.ItemFlag.HIDE_ATTRIBUTES.use", false);
                         plugin.getConfig().addDefault(args[1] + ".Sword.ItemFlag.HIDE_UNBREAKABLE.use", false);
+                        //*** Bow ***
+                        plugin.getConfig().addDefault(args[1] + ".Bow.Unbreakable", false);
+                        plugin.getConfig().addDefault(args[1] + ".Bow.ItemFlag.HIDE_ATTRIBUTES.use", false);
+                        plugin.getConfig().addDefault(args[1] + ".Bow.ItemFlag.HIDE_UNBREAKABLE.use", false);
 
                         Arena arena = new Arena(args[1]);
                         Arenas.addArena(arena);

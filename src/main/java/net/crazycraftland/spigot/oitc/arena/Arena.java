@@ -743,6 +743,20 @@ public class Arena {
         return this.plugin.getConfig().getBoolean(getName() + ".Sword.Unbreakable");
     }
 
+    public List<ItemFlag> getBowItemFlags() {
+        List<ItemFlag> list = new ArrayList<>();
+        for (ItemFlag e : ItemFlag.values()) {
+            boolean b = this.plugin.getConfig().getBoolean(getName() + ".Bow.ItemFlag." + e.name() + ".use");
+            if (b)
+                list.add(e);
+        }
+        return list;
+    }
+
+    public boolean isBowUnbreakable() {
+        return this.plugin.getConfig().getBoolean(getName() + ".Bow.Unbreakable");
+    }
+
     public boolean isAutoHeal() {
         return this.plugin.getConfig().getBoolean(getName() + ".AutoHeal");
     }

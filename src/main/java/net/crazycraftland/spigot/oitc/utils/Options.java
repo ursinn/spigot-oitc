@@ -78,6 +78,10 @@ public class Options {
         this.plugin.options.addDefault("Sword.ItemFlag.HIDE_ENCHANTS.use", false);
         this.plugin.options.addDefault("Sword.ItemFlag.HIDE_ATTRIBUTES.use", false);
         this.plugin.options.addDefault("Sword.ItemFlag.HIDE_UNBREAKABLE.use", false);
+        //*** Bow ***
+        this.plugin.options.addDefault("Bow.Unbreakable", false);
+        this.plugin.options.addDefault("Bow.ItemFlag.HIDE_ATTRIBUTES.use", false);
+        this.plugin.options.addDefault("Bow.ItemFlag.HIDE_UNBREAKABLE.use", false);
         Methods.saveYamls();
     }
 
@@ -148,6 +152,20 @@ public class Options {
 
     public boolean isSwordUnbreakable() {
         return this.plugin.options.getBoolean("Sword.Unbreakable");
+    }
+
+    public List<ItemFlag> getBowItemFlags() {
+        List<ItemFlag> list = new ArrayList<>();
+        for (ItemFlag e : ItemFlag.values()) {
+            boolean b = this.plugin.options.getBoolean("Bow.ItemFlag." + e.name() + ".use");
+            if (b)
+                list.add(e);
+        }
+        return list;
+    }
+
+    public boolean isBowUnbreakable() {
+        return this.plugin.options.getBoolean("Bow.Unbreakable");
     }
 
     public boolean isAutoHeal() {

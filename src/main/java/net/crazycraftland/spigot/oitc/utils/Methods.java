@@ -64,7 +64,10 @@ public class Methods {
         ItemStack bow = new ItemStack(Material.BOW, 1);
         ItemStack arrow = new ItemStack(Material.ARROW, 1);
         ItemStack sword = new ItemStack(getSwordMaterial(), 1);
+
         ItemMeta swordMeta = sword.getItemMeta();
+        ItemMeta bowMeta = bow.getItemMeta();
+
         if (arena != null) {
             if (plugin.op.getSwordEnchantments() != null) {
                 for (SwordEnchantment s : plugin.op.getSwordEnchantments()) {
@@ -88,16 +91,35 @@ public class Methods {
                 }
             }
 
+            if (plugin.op.getBowItemFlags() != null) {
+                for (ItemFlag s : plugin.op.getBowItemFlags()) {
+                    bowMeta.addItemFlags(s);
+                }
+            }
+            if (arena.getBowItemFlags() != null) {
+                for (ItemFlag s : arena.getBowItemFlags()) {
+                    bowMeta.addItemFlags(s);
+                }
+            }
+
             if (plugin.op.isSwordUnbreakable()) {
                 swordMeta.spigot().setUnbreakable(true);
             }
             if (arena.isSwordUnbreakable()) {
                 swordMeta.spigot().setUnbreakable(true);
             }
+
+            if (plugin.op.isBowUnbreakable()) {
+                bowMeta.spigot().setUnbreakable(true);
+            }
+            if (arena.isBowUnbreakable()) {
+                bowMeta.spigot().setUnbreakable(true);
+            }
         }
         sword.setItemMeta(swordMeta);
-        player.getInventory().clear();
+        bow.setItemMeta(bowMeta);
 
+        player.getInventory().clear();
         player.getInventory().addItem(sword);
         player.getInventory().addItem(bow);
         player.getInventory().addItem(arrow);
