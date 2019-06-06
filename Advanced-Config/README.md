@@ -21,22 +21,22 @@ Enchantment:      		# Sword Enchantments
   DURABILITY:     		# Unbreaking
     use: false    		# Use Enchantment
     level: 3      		# Enchantment Level
-Sword:					      # Sword Options
+Sword:					# Sword Options
   Unbreakable: false	# Make Sword Unbreakable
-  ItemFlag:				    # Item Flags
+  ItemFlag:				# Item Flags
     HIDE_ENCHANTS:		# Hide enchants
-      use: false		  # Use Flag
+      use: false		# Use Flag
     HIDE_ATTRIBUTES:	# Hide Attributes like Damage
-      use: false		  # Use Flag
+      use: false		# Use Flag
     HIDE_UNBREAKABLE:	# Hide the unbreakable State
-      use: false		  # Use Flag
-Bow:					        # Bow Options
+      use: false		# Use Flag
+Bow:					# Bow Options
   Unbreakable: false 	# Make Bow Unbreakable
-  ItemFlag:				    # Item Flags
+  ItemFlag:				# Item Flags
     HIDE_ATTRIBUTES:	# Hide Attributes like Damage
-      use: false		  # Use Flag
+      use: false		# Use Flag
     HIDE_UNBREAKABLE:	# Hide the unbreakable State
-      use: false		  # Use Flag
+      use: false		# Use Flag
 ```
 
 ## Config
@@ -64,20 +64,20 @@ test:                 	# Arena Name
     DURABILITY:       	# Unbreaking
       use: false      	# Use Enchantment
       level: 3        	# Enchantment Level
-  Sword:			  	      # Sword Options
+  Sword:			  	# Sword Options
     Unbreakable: false 	# Make Sword Unbreakable
-    ItemFlag:			      # Item Flags
-      HIDE_ENCHANTS:	  # Hide enchants
-        use: false		  # Use Flag
+    ItemFlag:			# Item Flags
+      HIDE_ENCHANTS:	# Hide enchants
+        use: false		# Use Flag
       HIDE_ATTRIBUTES:	# Hide Attributes like Damage
-        use: false		  # Use Flag
+        use: false		# Use Flag
       HIDE_UNBREAKABLE:	# Hide the unbreakable State
         use: false	  	# Use Flag
-  Bow:					        # Bow Options
+  Bow:					# Bow Options
     Unbreakable: false 	# Make Bow Unbreakable
-    ItemFlag:			      # Item Flags
+    ItemFlag:			# Item Flags
       HIDE_ATTRIBUTES:	# Hide Attributes like Damage
-        use: false		  # Use Flag
+        use: false		# Use Flag
       HIDE_UNBREAKABLE:	# Hide the unbreakable State
-        use: false		  # Use Flag
+        use: false		# Use Flag
 ```
