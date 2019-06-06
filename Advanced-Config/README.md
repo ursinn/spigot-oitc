@@ -3,6 +3,7 @@
 BungeeMode: false 		# Use BungeeCord / Singel Arena Mode
 Metrics: true     		# Use Metrics
 UpdateCheck: true 		# Use the Update Checker
+AutoHeal: false       # Automatic Heal when Killing a Player
 GameEnd:          		# Game End Commands
   Arena:          		# For the Arena
   - ''            
@@ -21,22 +22,22 @@ Enchantment:      		# Sword Enchantments
   DURABILITY:     		# Unbreaking
     use: false    		# Use Enchantment
     level: 3      		# Enchantment Level
-Sword:					# Sword Options
+Sword:					      # Sword Options
   Unbreakable: false	# Make Sword Unbreakable
-  ItemFlag:				# Item Flags
+  ItemFlag:			    	# Item Flags
     HIDE_ENCHANTS:		# Hide enchants
-      use: false		# Use Flag
+      use: false		  # Use Flag
     HIDE_ATTRIBUTES:	# Hide Attributes like Damage
-      use: false		# Use Flag
+      use: false		  # Use Flag
     HIDE_UNBREAKABLE:	# Hide the unbreakable State
-      use: false		# Use Flag
-Bow:					# Bow Options
+      use: false	   	# Use Flag
+Bow:				      	  # Bow Options
   Unbreakable: false 	# Make Bow Unbreakable
-  ItemFlag:				# Item Flags
+  ItemFlag:				    # Item Flags
     HIDE_ATTRIBUTES:	# Hide Attributes like Damage
-      use: false		# Use Flag
+      use: false	   	# Use Flag
     HIDE_UNBREAKABLE:	# Hide the unbreakable State
-      use: false		# Use Flag
+      use: false	  	# Use Flag
 ```
 
 ## Config
@@ -47,6 +48,7 @@ test:                 	# Arena Name
   KillsToWin: 25      	# see Configuration Help
   AutoStartPlayers: 8 	# see Configuration Help
   EndTime: 600        	# see Configuration Help
+  AutoHeal: false       # Automatic Heal when Killing a Player
   GameEnd:            	# Game End Commands
     Arena: []         	# For the Arena
     User: []          	# For the User
@@ -64,20 +66,20 @@ test:                 	# Arena Name
     DURABILITY:       	# Unbreaking
       use: false      	# Use Enchantment
       level: 3        	# Enchantment Level
-  Sword:			  	# Sword Options
+  Sword:			  	      # Sword Options
     Unbreakable: false 	# Make Sword Unbreakable
-    ItemFlag:			# Item Flags
-      HIDE_ENCHANTS:	# Hide enchants
-        use: false		# Use Flag
+    ItemFlag:			      # Item Flags
+      HIDE_ENCHANTS:	  # Hide enchants
+        use: false		  # Use Flag
       HIDE_ATTRIBUTES:	# Hide Attributes like Damage
-        use: false		# Use Flag
+        use: false		  # Use Flag
       HIDE_UNBREAKABLE:	# Hide the unbreakable State
         use: false	  	# Use Flag
-  Bow:					# Bow Options
+  Bow:					        # Bow Options
     Unbreakable: false 	# Make Bow Unbreakable
-    ItemFlag:			# Item Flags
+    ItemFlag:			      # Item Flags
       HIDE_ATTRIBUTES:	# Hide Attributes like Damage
-        use: false		# Use Flag
+        use: false		  # Use Flag
       HIDE_UNBREAKABLE:	# Hide the unbreakable State
-        use: false		# Use Flag
+        use: false		  # Use Flag
 ```
