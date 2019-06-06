@@ -36,6 +36,7 @@ import org.bukkit.Location;
 import org.bukkit.block.Sign;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -726,6 +727,24 @@ public class Arena {
             }
         }
         return list;
+    }
+
+    public List<ItemFlag> getSwordItemFlags() {
+        List<ItemFlag> list = new ArrayList<>();
+        for (ItemFlag e : ItemFlag.values()) {
+            boolean b = this.plugin.getConfig().getBoolean(getName() + ".Sword.ItemFlag." + e.name() + ".use");
+            if (b)
+                list.add(e);
+        }
+        return list;
+    }
+
+    public boolean isSwordUnbreakable() {
+        return this.plugin.getConfig().getBoolean(getName() + ".Sword.Unbreakable");
+    }
+
+    public boolean isAutoHeal() {
+        return this.plugin.getConfig().getBoolean(getName() + ".AutoHeal");
     }
 
 }

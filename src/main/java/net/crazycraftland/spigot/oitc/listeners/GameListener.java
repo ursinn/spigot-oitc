@@ -173,12 +173,15 @@ public class GameListener implements Listener {
 
     }
 
-    public void onPlayerKill(Player killer, Player player) {
+    private void onPlayerKill(Player killer, Player player) {
         Arena arena = Arenas.getArena(killer);
         killer.sendMessage(ChatColor.GRAY + "You have killed " + ChatColor.AQUA + player.getName());
         player.sendMessage(ChatColor.DARK_RED + killer.getName() + ChatColor.GRAY + " Has killed you!");
 
         Methods.addArrow(killer);
+
+        if (arena.isAutoHeal() || plugin.op.isAutoHeal())
+            killer.setHealth(20D);
 
         Scoreboard board = killer.getScoreboard();
         @SuppressWarnings("deprecation")

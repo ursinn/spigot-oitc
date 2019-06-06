@@ -32,6 +32,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -74,6 +75,24 @@ public class Methods {
                 for (SwordEnchantment s : arena.getSwordEnchantments()) {
                     swordMeta.addEnchant(s.getEnchantment(), s.getLevel(), s.isIgnore());
                 }
+            }
+
+            if (plugin.op.getSwordItemFlags() != null) {
+                for (ItemFlag s : plugin.op.getSwordItemFlags()) {
+                    swordMeta.addItemFlags(s);
+                }
+            }
+            if (arena.getSwordItemFlags() != null) {
+                for (ItemFlag s : arena.getSwordItemFlags()) {
+                    swordMeta.addItemFlags(s);
+                }
+            }
+
+            if (plugin.op.isSwordUnbreakable()) {
+                swordMeta.spigot().setUnbreakable(true);
+            }
+            if (arena.isSwordUnbreakable()) {
+                swordMeta.spigot().setUnbreakable(true);
             }
         }
         sword.setItemMeta(swordMeta);

@@ -52,7 +52,7 @@ public class OITC extends JavaPlugin {
     public final Options op = new Options(this);
     public final UpdateChecker updateChecker = new UpdateChecker(67880, this);
 
-    public static boolean devBuild = false;
+    public static boolean devBuild = true;
 
     public File arenasFile;
     public FileConfiguration arenas;

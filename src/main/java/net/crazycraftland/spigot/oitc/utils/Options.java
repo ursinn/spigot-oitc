@@ -27,6 +27,7 @@ package net.crazycraftland.spigot.oitc.utils;
 
 import net.crazycraftland.spigot.oitc.OITC;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,17 +59,25 @@ public class Options {
         this.plugin.options.addDefault("BungeeMode", false);
         this.plugin.options.addDefault("Metrics", true);
         this.plugin.options.addDefault("UpdateCheck", true);
+        this.plugin.options.addDefault("AutoHeal", false);
+        //*** GameEnd ***
         this.plugin.options.addDefault("GameEnd.Arena", list);
         this.plugin.options.addDefault("GameEnd.User", list2);
         this.plugin.options.addDefault("GameEnd.Place.1", list3);
         this.plugin.options.addDefault("GameEnd.Place.2", list4);
         this.plugin.options.addDefault("GameEnd.Place.3", list5);
+        //*** Enchantment ***
         this.plugin.options.addDefault("Enchantment.KNOCKBACK.use", false);
         this.plugin.options.addDefault("Enchantment.KNOCKBACK.level", 1);
         this.plugin.options.addDefault("Enchantment.DAMAGE_ALL.use", false);
         this.plugin.options.addDefault("Enchantment.DAMAGE_ALL.level", 4);
         this.plugin.options.addDefault("Enchantment.DURABILITY.use", false);
         this.plugin.options.addDefault("Enchantment.DURABILITY.level", 3);
+        //*** Sword ***
+        this.plugin.options.addDefault("Sword.Unbreakable", false);
+        this.plugin.options.addDefault("Sword.ItemFlag.HIDE_ENCHANTS.use", false);
+        this.plugin.options.addDefault("Sword.ItemFlag.HIDE_ATTRIBUTES.use", false);
+        this.plugin.options.addDefault("Sword.ItemFlag.HIDE_UNBREAKABLE.use", false);
         Methods.saveYamls();
     }
 
@@ -126,4 +135,23 @@ public class Options {
         }
         return list;
     }
+
+    public List<ItemFlag> getSwordItemFlags() {
+        List<ItemFlag> list = new ArrayList<>();
+        for (ItemFlag e : ItemFlag.values()) {
+            boolean b = this.plugin.options.getBoolean("Sword.ItemFlag." + e.name() + ".use");
+            if (b)
+                list.add(e);
+        }
+        return list;
+    }
+
+    public boolean isSwordUnbreakable() {
+        return this.plugin.options.getBoolean("Sword.Unbreakable");
+    }
+
+    public boolean isAutoHeal() {
+        return this.plugin.options.getBoolean("AutoHeal");
+    }
+
 }

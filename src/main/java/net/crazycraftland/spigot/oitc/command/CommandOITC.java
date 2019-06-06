@@ -155,23 +155,31 @@ public class CommandOITC implements CommandExecutor {
                         plugin.getConfig().addDefault(args[1] + ".KillsToWin", 25);
                         plugin.getConfig().addDefault(args[1] + ".AutoStartPlayers", 8);
                         plugin.getConfig().addDefault(args[1] + ".EndTime", 600);
-
+                        plugin.getConfig().addDefault(args[1] + ".AutoHeal", false);
+                        //*** Advanced ***
                         List<String> list = new ArrayList<>();
                         List<String> list2 = new ArrayList<>();
                         List<String> list3 = new ArrayList<>();
                         List<String> list4 = new ArrayList<>();
                         List<String> list5 = new ArrayList<>();
+                        //*** GameEnd ***
                         plugin.getConfig().addDefault(args[1] + ".GameEnd.Arena", list);
                         plugin.getConfig().addDefault(args[1] + ".GameEnd.User", list2);
                         plugin.getConfig().addDefault(args[1] + ".GameEnd.Place.1", list3);
                         plugin.getConfig().addDefault(args[1] + ".GameEnd.Place.2", list4);
                         plugin.getConfig().addDefault(args[1] + ".GameEnd.Place.3", list5);
+                        //*** Enchantment ***
                         plugin.getConfig().addDefault(args[1] + ".Enchantment.KNOCKBACK.use", false);
                         plugin.getConfig().addDefault(args[1] + ".Enchantment.KNOCKBACK.level", 1);
                         plugin.getConfig().addDefault(args[1] + ".Enchantment.DAMAGE_ALL.use", false);
                         plugin.getConfig().addDefault(args[1] + ".Enchantment.DAMAGE_ALL.level", 4);
                         plugin.getConfig().addDefault(args[1] + ".Enchantment.DURABILITY.use", false);
                         plugin.getConfig().addDefault(args[1] + ".Enchantment.DURABILITY.level", 3);
+                        //*** Sword ***
+                        plugin.getConfig().addDefault(args[1] + ".Sword.Unbreakable", false);
+                        plugin.getConfig().addDefault(args[1] + ".Sword.ItemFlag.HIDE_ENCHANTS.use", false);
+                        plugin.getConfig().addDefault(args[1] + ".Sword.ItemFlag.HIDE_ATTRIBUTES.use", false);
+                        plugin.getConfig().addDefault(args[1] + ".Sword.ItemFlag.HIDE_UNBREAKABLE.use", false);
 
                         Arena arena = new Arena(args[1]);
                         Arenas.addArena(arena);
