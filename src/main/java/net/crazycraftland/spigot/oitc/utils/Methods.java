@@ -255,4 +255,10 @@ public class Methods {
         }
     }
 
+    public static String getNmsVersion() {
+        String ver = Bukkit.getServer().getClass().getPackage().getName();
+        ver = ver.substring(ver.lastIndexOf('.') + 1);
+        return ver;
+    }
+
 }

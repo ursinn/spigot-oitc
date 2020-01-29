@@ -29,6 +29,7 @@ import net.crazycraftland.spigot.oitc.OITC;
 import net.crazycraftland.spigot.oitc.arena.Arena;
 import net.crazycraftland.spigot.oitc.arena.Arenas;
 import net.crazycraftland.spigot.oitc.arena.GameState;
+import net.crazycraftland.spigot.oitc.utils.MessageEnum;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
@@ -51,15 +52,14 @@ public class SignListener implements Listener {
                         for (Arena arena : Arenas.getArenas()) {
                             if (sign.getLine(1).equalsIgnoreCase(ChatColor.BOLD + arena.getName())) {
                                 arena.removeSign(e.getBlock().getLocation());
-                                OITC.sendMessage(e.getPlayer(), "You have removed a sign from " + ChatColor.DARK_AQUA + arena.getName());
-
+                                OITC.sendMessage(e.getPlayer(), OITC.messageManager.getMessage(MessageEnum.SIGN_REMOVE_NOTIFY).replaceAll("%arena_name%", arena.getName()));
                                 break;
                             }
                         }
                     } else {
                         e.setCancelled(true);
                         sign.update(true);
-                        OITC.sendMessage(e.getPlayer(), "If you want to break this sign, please sneak + break!");
+                        OITC.sendMessage(e.getPlayer(), OITC.messageManager.getMessage(MessageEnum.SIGN_REMOVE_HELP));
                     }
                 }
             } else {
@@ -99,7 +99,7 @@ public class SignListener implements Listener {
 
                     arena.addSign(e.getBlock().getLocation());
                     arena.updateSigns();
-                    player.sendMessage(ChatColor.GRAY + "You made a join sign for " + ChatColor.GOLD + arena.getName());
+                    player.sendMessage(OITC.messageManager.getMessage(MessageEnum.SIGN_ADD_NOTIFY).replaceAll("%arena_name%", arena.getName()));
                 }
             }
         }
@@ -115,8 +115,8 @@ public class SignListener implements Listener {
                 sign.update();
 
                 if (Arenas.isInArena(player)) {
-                    player.sendMessage(ChatColor.RED + "You are already in an Arena!");
-                    player.sendMessage(ChatColor.GRAY + "If you would like to leave the current arena you are in, do /oitc leave");
+                    player.sendMessage(OITC.messageManager.getMessage(MessageEnum.SIGN_ALREADY_IN_ARENA));
+                    player.sendMessage(OITC.messageManager.getMessage(MessageEnum.SIGN_ALREADY_IN_ARENA_LEAVE_NOTIFY));
                     return;
                 }
 
@@ -127,10 +127,10 @@ public class SignListener implements Listener {
                                 if (arena.getMaxPlayers() > arena.getPlayers().size()) {
                                     arena.addPlayer(player);
                                 } else {
-                                    player.sendMessage(ChatColor.RED + "Sorry! That Arena is full!");
+                                    player.sendMessage(OITC.messageManager.getMessage(MessageEnum.GAME_ARENA_FULL));
                                 }
                             } else {
-                                player.sendMessage(ChatColor.RED + "Sorry! That Arena is " + arena.getState().toString());
+                                player.sendMessage(OITC.messageManager.getMessage(MessageEnum.GAME_ARENA_IS_STATE).replaceAll("%arena_state%", arena.getState().toString()));
                             }
                         }
                         break;

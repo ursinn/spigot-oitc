@@ -52,7 +52,7 @@ public class UpdateChecker {
                 String newVersion = br.readLine();
                 if (!newVersion.equals(oldVersion)) {
                     update = true;
-                    plugin.getLogger().info("An update for OITC is available");
+                    plugin.getLogger().info(OITC.messageManager.getMessage(MessageEnum.UPDATER_NOTIFY));
                 }
             } catch (Exception e) {
                 e.printStackTrace();

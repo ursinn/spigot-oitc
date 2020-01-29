@@ -23,30 +23,12 @@
  *
  */
 
-package net.crazycraftland.spigot.oitc.listeners;
+package net.crazycraftland.spigot.oitc.utils;
 
-import net.crazycraftland.spigot.oitc.OITC;
-import net.crazycraftland.spigot.oitc.utils.MessageEnum;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
+public class MessageManager {
 
-public class PlayerJoin implements Listener {
-
-    private OITC plugin;
-
-    public PlayerJoin(OITC plugin) {
-        this.plugin = plugin;
-    }
-
-    @EventHandler
-    public void onJoin(PlayerJoinEvent e) {
-        if (!OITC.devBuild) {
-            if (e.getPlayer().hasPermission("oitc.admin")) {
-                if (plugin.updateChecker.isUpdate())
-                    OITC.sendMessage(e.getPlayer(), OITC.messageManager.getMessage(MessageEnum.UPDATER_NOTIFY));
-            }
-        }
+    public String getMessage(MessageEnum e) {
+        return e.getDefault_value().replaceAll("%nms_version%", Methods.getNmsVersion());
     }
 
 }

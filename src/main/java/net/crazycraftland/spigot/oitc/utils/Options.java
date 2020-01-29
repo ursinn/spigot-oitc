@@ -55,11 +55,12 @@ public class Options {
         List<String> list3 = new ArrayList<>();
         List<String> list4 = new ArrayList<>();
         List<String> list5 = new ArrayList<>();
-        list.add("");
-        this.plugin.options.addDefault("BungeeMode", false);
         this.plugin.options.addDefault("Metrics", true);
         this.plugin.options.addDefault("UpdateCheck", true);
         this.plugin.options.addDefault("AutoHeal", false);
+        //*** BungeeMode ***
+        this.plugin.options.addDefault("BungeeMode.use", false);
+        this.plugin.options.addDefault("BungeeMode.arena", "");
         //*** GameEnd ***
         this.plugin.options.addDefault("GameEnd.Arena", list);
         this.plugin.options.addDefault("GameEnd.User", list2);
@@ -86,7 +87,7 @@ public class Options {
     }
 
     public void loadOptions() {
-        this.BungeeMode = this.plugin.options.getBoolean("BungeeMode");
+        this.BungeeMode = this.plugin.options.getBoolean("BungeeMode.use");
         this.useMetrics = this.plugin.options.getBoolean("Metrics");
         this.updateCheck = this.plugin.options.getBoolean("UpdateCheck");
         this.GameEnd_Arena = this.plugin.options.getStringList("GameEnd.Arena");
@@ -170,6 +171,10 @@ public class Options {
 
     public boolean isAutoHeal() {
         return this.plugin.options.getBoolean("AutoHeal");
+    }
+
+    public String getBungeeModeArena() {
+        return this.plugin.options.getString("BungeeMode.arena");
     }
 
 }

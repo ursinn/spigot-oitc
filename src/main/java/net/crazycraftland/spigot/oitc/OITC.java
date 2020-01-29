@@ -31,26 +31,22 @@ import net.crazycraftland.spigot.oitc.command.CommandOITC;
 import net.crazycraftland.spigot.oitc.listeners.GameListener;
 import net.crazycraftland.spigot.oitc.listeners.PlayerJoin;
 import net.crazycraftland.spigot.oitc.listeners.SignListener;
-import net.crazycraftland.spigot.oitc.utils.Methods;
-import net.crazycraftland.spigot.oitc.utils.Options;
-import net.crazycraftland.spigot.oitc.utils.UpdateChecker;
+import net.crazycraftland.spigot.oitc.utils.*;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.util.logging.Logger;
 
 public class OITC extends JavaPlugin {
 
-    private final Logger logger = Logger.getLogger("Minecraft");
-    private final Methods methods = new Methods(this);
-    public final Options op = new Options(this);
-    public final UpdateChecker updateChecker = new UpdateChecker(67880, this);
+    private Methods methods = new Methods(this);
+    public Options op = new Options(this);
+    public UpdateChecker updateChecker = new UpdateChecker(67880, this);
+    public static MessageManager messageManager = new MessageManager();
 
     public static boolean devBuild = true;
 
@@ -66,13 +62,13 @@ public class OITC extends JavaPlugin {
         String ver = Bukkit.getServer().getClass().getPackage().getName();
         ver = ver.substring(ver.lastIndexOf('.') + 1);
         if (!Methods.getVersions().containsKey(ver)) {
-            this.logger.info("[OITC] unsupported Minecraft Server version! (" + ver + ")");
+            getLogger().info(messageManager.getMessage(MessageEnum.STARTUP_UNSUPPORTED_MINECRAFT_VERSION));
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
 
         //*********** CONFIG FILES *****************
-        this.logger.info("[OITC] Loading YML files!");
+        getLogger().info(messageManager.getMessage(MessageEnum.STARTUP_LOADING_YML_START));
 
         this.arenasFile = new File(getDataFolder(), "arenas.yml");
         this.arenas = new YamlConfiguration();
@@ -92,7 +88,7 @@ public class OITC extends JavaPlugin {
         op.setDefaults();
         op.loadOptions();
 
-        this.logger.info("[OITC] Loaded YML files Successfully!");
+        getLogger().info(messageManager.getMessage(MessageEnum.STARTUP_LOADING_YML_FINISHED));
         //*********** LISTENERS *****************
         getServer().getPluginManager().registerEvents(new GameListener(this), this);
         getServer().getPluginManager().registerEvents(new SignListener(), this);
@@ -103,22 +99,39 @@ public class OITC extends JavaPlugin {
         //*************************************
         if (!devBuild) {
             if (op.isUseMetrics())
-                new Metrics(this);
+                new Metrics(this, 4780);
             if (op.isUpdateCheck())
                 updateChecker.checkUpdates.start();
         }
 
-        try {
-            for (String s : this.arenas.getStringList("Arenas.List")) {
-                Arena arena = new Arena(s);
-                this.logger.info("[OITC] Now Currently Loading The Arena: " + arena.getName());
+        if (!op.isBungeeMode()) {
+            try {
+                for (String s : this.arenas.getStringList("Arenas.List")) {
+                    Arena arena = new Arena(s);
+                    getLogger().info(messageManager.getMessage(MessageEnum.STARTUP_LOADING_ARENA_START).replaceAll("%arena_name%", arena.getName()));
 
-                Arenas.addArena(arena);
-                arena.updateSigns();
-                this.logger.info("[OITC] The Arena: " + arena.getName() + " Has successfully loaded!");
+                    Arenas.addArena(arena);
+                    arena.updateSigns();
+                    getLogger().info(messageManager.getMessage(MessageEnum.STARTUP_LOADING_ARENA_FINISHED).replaceAll("%arena_name%", arena.getName()));
+                }
+            } catch (Exception e) {
+                getLogger().severe(messageManager.getMessage(MessageEnum.STARTUP_LOADING_ARENA_FAILED));
             }
-        } catch (Exception e) {
-            this.logger.info("[OITC] WARNING, FAILED TO LOAD ARENAS.");
+        } else {
+            try {
+                if (!this.arenas.getStringList("Arenas.List").contains(op.getBungeeModeArena()))
+                    getLogger().severe(messageManager.getMessage(MessageEnum.STARTUP_LOADING_ARENA_SINGLE_MODE_FAILED));
+                else {
+                    Arena arena = new Arena(op.getBungeeModeArena());
+                    getLogger().info(messageManager.getMessage(MessageEnum.STARTUP_LOADING_ARENA_SINGLE_MODE_START).replaceAll("%arena_name%", arena.getName()));
+
+                    Arenas.addArena(arena);
+                    getLogger().info(messageManager.getMessage(MessageEnum.STARTUP_LOADING_ARENA_SINGLE_MODE_FINISHED).replaceAll("%arena_name%", arena.getName()));
+                }
+            } catch (Exception e) {
+                getLogger().severe(messageManager.getMessage(MessageEnum.STARTUP_LOADING_ARENA_SINGLE_MODE_FAILED));
+                Bukkit.getPluginManager().disablePlugin(this);
+            }
         }
     }
 
@@ -129,8 +142,8 @@ public class OITC extends JavaPlugin {
         }
     }
 
-    public static void sendMessage(Player player, String Message) {
-        player.sendMessage(ChatColor.GRAY + "[" + ChatColor.AQUA + "OITC" + ChatColor.GRAY + "] " + ChatColor.GRAY + Message);
+    public static void sendMessage(Player player, String message) {
+        player.sendMessage(messageManager.getMessage(MessageEnum.OITC_SEND_MESSAGE).replaceAll("%message%", message));
     }
 
 }

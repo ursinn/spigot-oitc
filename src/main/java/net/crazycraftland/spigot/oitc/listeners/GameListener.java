@@ -29,6 +29,7 @@ import net.crazycraftland.spigot.oitc.OITC;
 import net.crazycraftland.spigot.oitc.arena.Arena;
 import net.crazycraftland.spigot.oitc.arena.Arenas;
 import net.crazycraftland.spigot.oitc.arena.LeaveReason;
+import net.crazycraftland.spigot.oitc.utils.MessageEnum;
 import net.crazycraftland.spigot.oitc.utils.Methods;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -65,12 +66,7 @@ public class GameListener implements Listener {
         if (Arenas.isInArena(player)) {
             e.setCancelled(true);
 
-            Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-
-                public void run() {
-                    player.updateInventory();
-                }
-            }, 1L);
+            Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> player.updateInventory(), 1L);
         }
     }
 
@@ -99,15 +95,10 @@ public class GameListener implements Listener {
 
     @EventHandler
     public void onProjHit(ProjectileHitEvent e) {
-
         if (e.getEntity() instanceof Arrow) {
-
             Arrow arrow = (Arrow) e.getEntity();
-
             if (arrow.getShooter() instanceof Player) {
-
                 Player shooter = (Player) arrow.getShooter();
-
                 if (Arenas.isInArena(shooter)) {
                     Arena arena = Arenas.getArena(shooter);
                     if (arena.isOn()) {
@@ -144,11 +135,7 @@ public class GameListener implements Listener {
                 e.setDeathMessage("");
                 e.setDroppedExp(0);
 
-                Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, new Runnable() {
-                    public void run() {
-                        player.spigot().respawn();
-                    }
-                }, 1);
+                Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, () -> player.spigot().respawn(), 1);
 
                 if (player.getKiller() != null) {
                     Player killer = player.getKiller();
@@ -161,6 +148,9 @@ public class GameListener implements Listener {
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent e) {
         Player player = e.getPlayer();
+        if (plugin.op.isBungeeMode())
+            e.setQuitMessage(null);
+
         if (!Arenas.isInArena(player)) {
             return;
         }
@@ -170,10 +160,11 @@ public class GameListener implements Listener {
             player.teleport(Methods.getLobby());
         player.getInventory().clear();
         arena.removePlayer(player, LeaveReason.QUIT);
-
     }
 
     private void onPlayerKill(Player killer, Player player) {
+        // TODO MessageManager Support Add
+
         Arena arena = Arenas.getArena(killer);
         killer.sendMessage(ChatColor.GRAY + "You have killed " + ChatColor.AQUA + player.getName());
         player.sendMessage(ChatColor.DARK_RED + killer.getName() + ChatColor.GRAY + " Has killed you!");
@@ -232,6 +223,7 @@ public class GameListener implements Listener {
                         !e.getMessage().equalsIgnoreCase("/oitc leave")) {
 
                     e.setCancelled(true);
+                    // TODO MessageManager Support Add
                     OITC.sendMessage(player, "You cannot do any other commands besides the default /oitc commands");
                     OITC.sendMessage(player, "if you would like to leave, please do " + ChatColor.RED + "/oitc leave , OR /oitc lobby");
                 }
@@ -276,6 +268,34 @@ public class GameListener implements Listener {
         Arena arena = Arenas.getArena(player);
         if (arena.isOn()) {
             e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerLogin(PlayerLoginEvent e) {
+        if (plugin.op.isBungeeMode()) {
+            Arena arena = Arenas.getArena(plugin.op.getBungeeModeArena());
+            if (arena == null) {
+                e.setResult(PlayerLoginEvent.Result.KICK_OTHER);
+                e.setKickMessage(OITC.messageManager.getMessage(MessageEnum.GAME_ARENA_NOT_FOUND));
+                return;
+            }
+            if (!arena.isOn()) {
+                if (arena.getMaxPlayers() < arena.getPlayers().size()) {
+                    e.getPlayer().kickPlayer(OITC.messageManager.getMessage(MessageEnum.GAME_ARENA_FULL));
+                }
+            } else {
+                e.getPlayer().kickPlayer(OITC.messageManager.getMessage(MessageEnum.GAME_ARENA_IS_STATE).replaceAll("%arena_state%", arena.getState().toString()));
+            }
+        }
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent e) {
+        if (plugin.op.isBungeeMode()) {
+            e.setJoinMessage(null);
+            Arena arena = Arenas.getArena(plugin.op.getBungeeModeArena());
+            arena.addPlayer(e.getPlayer());
         }
 
     }

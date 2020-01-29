@@ -26,6 +26,7 @@
 package net.crazycraftland.spigot.oitc.arena;
 
 import net.crazycraftland.spigot.oitc.OITC;
+import net.crazycraftland.spigot.oitc.utils.MessageEnum;
 import net.crazycraftland.spigot.oitc.utils.Methods;
 import net.crazycraftland.spigot.oitc.utils.Options;
 import net.crazycraftland.spigot.oitc.utils.SwordEnchantment;
@@ -51,8 +52,8 @@ public class Arena {
     private GameState state = GameState.LOBBY;
     private int id = 0;
     private int counter;
-    private int endtime;
-    private boolean endtimeOn = false;
+    private int endTime;
+    private boolean endTimeOn = false;
     private OITC plugin;
     private List<UUID> players = new ArrayList<>();
     private Scoreboard scoreboard;
@@ -64,13 +65,13 @@ public class Arena {
 
     private HashMap<UUID, ItemStack[]> armor = new HashMap<>();
     private HashMap<UUID, ItemStack[]> inventory = new HashMap<>();
-    private HashMap<UUID, GameMode> gamemode = new HashMap<>();
+    private HashMap<UUID, GameMode> gameMode = new HashMap<>();
 
 
     private void saveInventory(Player player) {
         armor.put(player.getUniqueId(), player.getInventory().getArmorContents());
         inventory.put(player.getUniqueId(), player.getInventory().getContents());
-        gamemode.put(player.getUniqueId(), player.getGameMode());
+        gameMode.put(player.getUniqueId(), player.getGameMode());
 
         player.getInventory().setArmorContents(null);
         player.getInventory().clear();
@@ -89,9 +90,9 @@ public class Arena {
             inventory.remove(player.getUniqueId());
         }
 
-        if (gamemode.containsKey(player.getUniqueId())) {
-            player.setGameMode(gamemode.get(player.getUniqueId()));
-            gamemode.remove(player.getUniqueId());
+        if (gameMode.containsKey(player.getUniqueId())) {
+            player.setGameMode(gameMode.get(player.getUniqueId()));
+            gameMode.remove(player.getUniqueId());
         }
         player.updateInventory();
     }
@@ -123,10 +124,6 @@ public class Arena {
 
     public String getName() {
         return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Location getRandomSpawn() {
@@ -274,43 +271,31 @@ public class Arena {
         }
 
         this.counter = this.plugin.getConfig().getInt(getName() + ".Countdown");
+        this.id = Bukkit.getScheduler().scheduleSyncRepeatingTask(this.plugin, () -> {
+            if (Arena.this.counter > 0) {
+                setState(GameState.STARTING);
+                updateSigns();
+                if (Arena.this.counter == 45 || Arena.this.counter == 30 || Arena.this.counter == 15 || Arena.this.counter <= 10)
+                    sendAll(OITC.messageManager.getMessage(MessageEnum.ARENA_GAME_START_COUNTDOWN).replaceAll("%counter%", Integer.toString(Arena.this.counter)));
 
-        this.id = Bukkit.getScheduler().scheduleSyncRepeatingTask(this.plugin, new Runnable() {
-            public void run() {
-                if (Arena.this.counter > 0) {
-                    setState(GameState.STARTING);
-                    updateSigns();
-                    if (Arena.this.counter == 30) {
-                        sendAll(ChatColor.AQUA + "" + counter + ChatColor.GRAY + " seconds until the game starts.");
-                    }
-                    if (Arena.this.counter == 45) {
-                        sendAll(ChatColor.AQUA + "" + counter + ChatColor.GRAY + " seconds until the game starts.");
-                    }
-                    if (Arena.this.counter == 15) {
-                        sendAll(ChatColor.AQUA + "" + counter + ChatColor.GRAY + " seconds until the game starts.");
-                    }
-                    if (Arena.this.counter <= 10) {
-                        sendAll(ChatColor.AQUA + "" + counter + ChatColor.GRAY + " seconds until the game starts.");
-                    }
-                    Arena.this.counter -= 1;
-                } else {
-                    Arena.this.sendAll(ChatColor.AQUA + "The game has started!");
-                    setState(GameState.INGAME);
-                    Arena.this.startGameTimer();
-                    Arena.this.healAll();
+                Arena.this.counter--;
+            } else {
+                Arena.this.sendAll(OITC.messageManager.getMessage(MessageEnum.ARENA_GAME_START));
+                setState(GameState.INGAME);
+                Arena.this.startGameTimer();
+                Arena.this.healAll();
 
-                    Arena.this.setScoreboard();
+                Arena.this.setScoreboard();
 
-                    Bukkit.getScheduler().cancelTask(Arena.this.id);
-                    // Arena.this.check();
-                    Arena.this.updateSigns();
+                Bukkit.getScheduler().cancelTask(Arena.this.id);
+                // Arena.this.check();
+                Arena.this.updateSigns();
 
-                    //Arena.this.timeCheck();
-                    Arena.this.spawnPlayers();
-                    setInventories();
+                //Arena.this.timeCheck();
+                Arena.this.spawnPlayers();
+                setInventories();
 
-                    updateSigns();
-                }
+                updateSigns();
             }
         }, 0L, 20L);
 
@@ -318,17 +303,15 @@ public class Arena {
 
     public void stop() {
         GameState gs = getState();
-        if (getState() == GameState.STARTING) {
+        if (getState() == GameState.STARTING)
             Bukkit.getScheduler().cancelTask(id);
-        }
 
         setState(GameState.STOPPING);
         updateSigns();
         healAll();
 
-        if (this.endtimeOn) {
-            Bukkit.getScheduler().cancelTask(this.endtime);
-        }
+        if (this.endTimeOn)
+            Bukkit.getScheduler().cancelTask(this.endTime);
 
         Options options = plugin.op;
         Player first_player = null;
@@ -341,16 +324,15 @@ public class Arena {
         for (UUID s : players) {
             if (Bukkit.getPlayer(s) != null) {
                 Player player = Bukkit.getPlayer(s);
-                if (Methods.getLobby() != null) {
+                if (Methods.getLobby() != null)
                     player.teleport(Methods.getLobby());
-                } else {
-                    player.sendMessage(ChatColor.RED + "Error: It seems the Main Lobby has not been setup yet, please tell your server owner ASAP.");
-                }
+                else
+                    player.sendMessage(OITC.messageManager.getMessage(MessageEnum.ARENA_MAIN_LOBBY_NOT_FOUND));
 
                 player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
                 loadInventory(player);
-                player.sendMessage(ChatColor.GREEN + "We hope you had fun :)");
-                OITC.sendMessage(player, "You have been teleported back to the Main Lobby.");
+                player.sendMessage(OITC.messageManager.getMessage(MessageEnum.ARENA_STOPPED));
+                OITC.sendMessage(player, OITC.messageManager.getMessage(MessageEnum.ARENA_BACK_TP));
                 Arenas.removeArena(player);
 
                 if (gs == GameState.INGAME) {
@@ -462,7 +444,7 @@ public class Arena {
         }
 
         this.players.clear();
-        this.endtimeOn = false;
+        this.endTimeOn = false;
 
         setState(GameState.LOBBY);
         updateSigns();
@@ -473,12 +455,10 @@ public class Arena {
     }
 
     private void startGameTimer() {
-        this.endtimeOn = true;
-        this.endtime = Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, new Runnable() {
-            public void run() {
-                Arena.this.sendAll(ChatColor.GRAY + "The time limit has been reached!");
-                Arena.this.stop();
-            }
+        this.endTimeOn = true;
+        this.endTime = Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, () -> {
+            Arena.this.sendAll(OITC.messageManager.getMessage(MessageEnum.ARENA_TIME_LIMIT));
+            Arena.this.stop();
         }, this.plugin.getConfig().getInt(getName() + ".EndTime") * 20);
     }
 
@@ -518,7 +498,7 @@ public class Arena {
 
     private List<Location> getSigns() {
         String ArenaName = getName();
-        List<Location> locs = new ArrayList<Location>();
+        List<Location> locs = new ArrayList<>();
         for (int count = 1; this.plugin.arenas.contains("Arenas." + ArenaName + ".Signs." + count + ".X"); count++) {
             Location loc = new Location(Bukkit.getWorld(this.plugin.arenas.getString("Arenas." + ArenaName + ".Signs." + count + ".World")),
                     this.plugin.arenas.getDouble("Arenas." + ArenaName + ".Signs." + count + ".X"),
@@ -609,9 +589,10 @@ public class Arena {
         if (!players.contains(player.getUniqueId())) {
             players.add(player.getUniqueId());
             Arenas.addArena(player, this);
-            sendAll(ChatColor.AQUA + player.getName() + ChatColor.GRAY + " Has joined.");
+            sendAll(OITC.messageManager.getMessage(MessageEnum.ARENA_PLAYER_JOIN).replaceAll("%player_name%", player.getName()));
 
-            saveInventory(player);
+            if (!plugin.op.isBungeeMode())
+                saveInventory(player);
 
             if (getState() == GameState.INGAME) {
                 Location loc = getRandomSpawn();
@@ -625,17 +606,14 @@ public class Arena {
                 }
 
             } else {
-
                 Location loc = getLobbySpawn();
-                if (loc != null) {
+                if (loc != null)
                     player.teleport(loc);
-                } else {
-                    OITC.sendMessage(player, "Oops, It seems there is no lobby setup for this arena yet! Please contact your server admins.");
-                }
+                else
+                    OITC.sendMessage(player, OITC.messageManager.getMessage(MessageEnum.ARENA_LOBBY_NOT_FOUND));
 
-                if (canStart()) {
+                if (canStart())
                     start();
-                }
             }
 
             updateSigns();
@@ -643,42 +621,36 @@ public class Arena {
     }
 
     public void removePlayer(Player player, LeaveReason reason) {
-        if (this.players.contains(player.getUniqueId())) {
-            this.players.remove(player.getUniqueId());
-        }
+        this.players.remove(player.getUniqueId());
 
         loadInventory(player);
-        if (reason == LeaveReason.QUIT) {
-            sendAll(ChatColor.RED + player.getName() + ChatColor.GRAY + " Has quit.");
-        }
+        if (reason == LeaveReason.QUIT)
+            sendAll(OITC.messageManager.getMessage(MessageEnum.ARENA_PLAYER_REMOVE_QUIT).replaceAll("%player_name%", player.getName()));
 
-        if (reason == LeaveReason.KICK) {
-            sendAll(ChatColor.RED + player.getName() + ChatColor.GRAY + " Has been kicked.");
-        }
-        if (reason == LeaveReason.DEATHS) {
-            sendAll(ChatColor.RED + player.getName() + ChatColor.GRAY + " is eliminated!");
-        }
+        if (reason == LeaveReason.KICK)
+            sendAll(OITC.messageManager.getMessage(MessageEnum.ARENA_PLAYER_REMOVE_KICK).replaceAll("%player_name%", player.getName()));
 
-        if (reason == LeaveReason.STOPPED) {
-            player.sendMessage(ChatColor.GREEN + "We hope you had fun :)");
-        }
+        if (reason == LeaveReason.DEATHS)
+            sendAll(OITC.messageManager.getMessage(MessageEnum.ARENA_PLAYER_REMOVE_DEATH).replaceAll("%player_name%", player.getName()));
+
+        if (reason == LeaveReason.STOPPED)
+            player.sendMessage(OITC.messageManager.getMessage(MessageEnum.ARENA_STOPPED));
 
         player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
 
         Arenas.removeArena(player);
-        if (player.isInsideVehicle()) {
+        if (player.isInsideVehicle())
             player.getVehicle().eject();
-        }
 
-        player.teleport(Methods.getLobby());
-        OITC.sendMessage(player, "You have been teleported back to the Main Lobby.");
+        if (!plugin.op.isBungeeMode())
+            player.teleport(Methods.getLobby());
+        OITC.sendMessage(player, OITC.messageManager.getMessage(MessageEnum.ARENA_BACK_TP));
         updateSigns();
 
 
         if (getState() == GameState.INGAME || getState() == GameState.STARTING) {
-            if (players.size() <= 1) {
+            if (players.size() <= 1)
                 stop();
-            }
         }
     }
 

@@ -53,9 +53,7 @@ public class Arenas {
     }
 
     public static void removeArena(Player player) {
-        if (playerArena.containsKey(player.getName())) {
-            playerArena.remove(player.getName());
-        }
+        playerArena.remove(player.getName());
     }
 
     public static void addArena(Arena arena) {
@@ -70,9 +68,7 @@ public class Arenas {
     public static void delArena(Arena arena) {
         if (arenas.containsKey(arena.getName())) {
             arenas.remove(arena.getName());
-            if (list.contains(arena)) {
-                list.remove(arena);
-            }
+            list.remove(arena);
         }
     }
 

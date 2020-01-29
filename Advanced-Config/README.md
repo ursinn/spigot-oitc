@@ -5,8 +5,7 @@ Metrics: true     		# Use Metrics
 UpdateCheck: true 		# Use the Update Checker
 AutoHeal: false       # Automatic Heal when Killing a Player
 GameEnd:          		# Game End Commands
-  Arena:          		# For the Arena
-  - ''            
+  Arena: []         	# For the Arena            
   User: []        		# For the User
   Place:          
     '1': []       		# For the 1st Place
