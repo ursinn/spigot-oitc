@@ -1,10 +1,12 @@
-# OITC
+OITC
+====
 
-[![Build Status](https://travis-ci.com/ursinn/Spigot-OITC.svg?branch=master)](https://travis-ci.com/ursinn/Spigot-OITC)
-[![Build Status](https://ci.filli-it.ch/job/ursinn/job/Spigot/job/Spigot-OITC/job/master/badge/icon)](https://ci.filli-it.ch/job/ursinn/job/Spigot/job/Spigot-OITC/job/master/)
+[![Build Status](https://img.shields.io/travis/com/ursinn/Spigot-OITC?logo=travis)](https://travis-ci.com/ursinn/Spigot-OITC)
+[![Build Status](https://img.shields.io/jenkins/build?jobUrl=URL&logo=jenkins)](URL)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-![GitHub release](https://img.shields.io/github/release/ursinn/Spigot-OITC.svg)
-![GitHub All Releases](https://img.shields.io/github/downloads/ursinn/Spigot-OITC/total.svg)
+[![GitHub release](https://img.shields.io/github/release/ursinn/Spigot-OITC.svg?logo=github)](https://github.com/ursinn/Spigot-OITC/releases/latest)
+[![GitHub All Releases](https://img.shields.io/github/downloads/ursinn/Spigot-OITC/total.svg?logo=github)](https://github.com/ursinn/Spigot-OITC/releases)
+
 
 ## **Features**
 * Join signs!
@@ -66,4 +68,4 @@ This plugin utilizes bStats plugin metrics system, which means that the followin
 * bStats-supported plugins
 * Plugin version of bStats-supported plugins
 
-[![Metrcis](https://bstats.org/signatures/bukkit/OITC.svg)](https://bstats.org/plugin/bukkit/OITC)
+[![Metrcis](https://bstats.org/signatures/bukkit/OITC.svg)](https://bstats.org/plugin/bukkit/OITC/4780)
