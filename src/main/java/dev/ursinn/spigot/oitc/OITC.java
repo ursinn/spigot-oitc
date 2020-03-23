@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019 Ursin Filli
+ * Copyright (c) 2019 - 2020 Ursin Filli
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,15 +23,15 @@
  *
  */
 
-package net.crazycraftland.spigot.oitc;
+package dev.ursinn.spigot.oitc;
 
-import net.crazycraftland.spigot.oitc.arena.Arena;
-import net.crazycraftland.spigot.oitc.arena.Arenas;
-import net.crazycraftland.spigot.oitc.command.CommandOITC;
-import net.crazycraftland.spigot.oitc.listeners.GameListener;
-import net.crazycraftland.spigot.oitc.listeners.PlayerJoin;
-import net.crazycraftland.spigot.oitc.listeners.SignListener;
-import net.crazycraftland.spigot.oitc.utils.*;
+import dev.ursinn.spigot.oitc.arena.Arena;
+import dev.ursinn.spigot.oitc.arena.Arenas;
+import dev.ursinn.spigot.oitc.command.CommandOITC;
+import dev.ursinn.spigot.oitc.listeners.GameListener;
+import dev.ursinn.spigot.oitc.listeners.PlayerJoin;
+import dev.ursinn.spigot.oitc.listeners.SignListener;
+import dev.ursinn.spigot.oitc.utils.*;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -43,19 +43,21 @@ import java.io.File;
 
 public class OITC extends JavaPlugin {
 
-    private Methods methods = new Methods(this);
+    public static MessageManager messageManager = new MessageManager();
+    public static boolean devBuild = true;
     public Options op = new Options(this);
     public UpdateChecker updateChecker = new UpdateChecker(67880, this);
-    public static MessageManager messageManager = new MessageManager();
-
-    public static boolean devBuild = true;
-
     public File arenasFile;
     public FileConfiguration arenas;
     public File optionsFile;
     public FileConfiguration options;
     public File languageFile;
     public FileConfiguration language;
+    private Methods methods = new Methods(this);
+
+    public static void sendMessage(Player player, String message) {
+        player.sendMessage(messageManager.getMessage(MessageEnum.OITC_SEND_MESSAGE).replaceAll("%message%", message));
+    }
 
     @Override
     public void onEnable() {
@@ -140,10 +142,6 @@ public class OITC extends JavaPlugin {
         for (Arena arena : Arenas.getArenas()) {
             arena.stop();
         }
-    }
-
-    public static void sendMessage(Player player, String message) {
-        player.sendMessage(messageManager.getMessage(MessageEnum.OITC_SEND_MESSAGE).replaceAll("%message%", message));
     }
 
 }

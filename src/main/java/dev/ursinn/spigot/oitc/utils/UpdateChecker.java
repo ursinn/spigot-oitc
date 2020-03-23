@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019 Ursin Filli
+ * Copyright (c) 2019 - 2020 Ursin Filli
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,9 +23,9 @@
  *
  */
 
-package net.crazycraftland.spigot.oitc.utils;
+package dev.ursinn.spigot.oitc.utils;
 
-import net.crazycraftland.spigot.oitc.OITC;
+import dev.ursinn.spigot.oitc.OITC;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -37,12 +37,6 @@ public class UpdateChecker {
     private int id;
     private OITC plugin;
     private boolean update;
-
-    public UpdateChecker(int id, OITC plugin) {
-        this.id = id;
-        this.plugin = plugin;
-    }
-
     public Thread checkUpdates = new Thread() {
         public void run() {
             try {
@@ -59,6 +53,11 @@ public class UpdateChecker {
             }
         }
     };
+
+    public UpdateChecker(int id, OITC plugin) {
+        this.id = id;
+        this.plugin = plugin;
+    }
 
     public boolean isUpdate() {
         return update;

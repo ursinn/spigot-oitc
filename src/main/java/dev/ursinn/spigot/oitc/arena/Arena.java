@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019 Ursin Filli
+ * Copyright (c) 2019 - 2020 Ursin Filli
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,13 +23,13 @@
  *
  */
 
-package net.crazycraftland.spigot.oitc.arena;
+package dev.ursinn.spigot.oitc.arena;
 
-import net.crazycraftland.spigot.oitc.OITC;
-import net.crazycraftland.spigot.oitc.utils.MessageEnum;
-import net.crazycraftland.spigot.oitc.utils.Methods;
-import net.crazycraftland.spigot.oitc.utils.Options;
-import net.crazycraftland.spigot.oitc.utils.SwordEnchantment;
+import dev.ursinn.spigot.oitc.OITC;
+import dev.ursinn.spigot.oitc.utils.MessageEnum;
+import dev.ursinn.spigot.oitc.utils.Methods;
+import dev.ursinn.spigot.oitc.utils.Options;
+import dev.ursinn.spigot.oitc.utils.SwordEnchantment;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -57,16 +57,14 @@ public class Arena {
     private OITC plugin;
     private List<UUID> players = new ArrayList<>();
     private Scoreboard scoreboard;
+    private HashMap<UUID, ItemStack[]> armor = new HashMap<>();
+    private HashMap<UUID, ItemStack[]> inventory = new HashMap<>();
+    private HashMap<UUID, GameMode> gameMode = new HashMap<>();
 
     public Arena(String Name) {
         this.name = Name;
         this.plugin = Methods.getPlugin();
     }
-
-    private HashMap<UUID, ItemStack[]> armor = new HashMap<>();
-    private HashMap<UUID, ItemStack[]> inventory = new HashMap<>();
-    private HashMap<UUID, GameMode> gameMode = new HashMap<>();
-
 
     private void saveInventory(Player player) {
         armor.put(player.getUniqueId(), player.getInventory().getArmorContents());
@@ -174,6 +172,19 @@ public class Arena {
         Methods.saveYamls();
     }
 
+    private Location getLobbySpawn() {
+        if (this.plugin.arenas.contains("Arenas." + getName() + ".Lobby.Spawn" + ".World")) {
+            Location loc = new Location(Bukkit.getWorld(this.plugin.arenas.getString("Arenas." + getName() + ".Lobby.Spawn" + ".World")),
+                    this.plugin.arenas.getDouble("Arenas." + getName() + ".Lobby.Spawn" + ".X"),
+                    this.plugin.arenas.getDouble("Arenas." + getName() + ".Lobby.Spawn" + ".Y"),
+                    this.plugin.arenas.getDouble("Arenas." + getName() + ".Lobby.Spawn" + ".Z"));
+            loc.setPitch((float) this.plugin.arenas.getDouble("Arenas." + getName() + ".Lobby.Spawn" + ".Pitch"));
+            loc.setYaw((float) this.plugin.arenas.getDouble("Arenas." + getName() + ".Lobby.Spawn" + ".Yaw"));
+            return loc;
+        }
+        return null;
+    }
+
     public void setLobbySpawn(Location loc) {
         if (!this.plugin.arenas.contains("Arenas." + getName() + ".Lobby.Spawn")) {
             this.plugin.arenas.addDefault("Arenas." + getName() + ".Lobby.Spawn" + ".X", loc.getX());
@@ -191,19 +202,6 @@ public class Arena {
             this.plugin.arenas.set("Arenas." + getName() + ".Lobby.Spawn" + ".Yaw", loc.getYaw());
         }
         Methods.saveYamls();
-    }
-
-    private Location getLobbySpawn() {
-        if (this.plugin.arenas.contains("Arenas." + getName() + ".Lobby.Spawn" + ".World")) {
-            Location loc = new Location(Bukkit.getWorld(this.plugin.arenas.getString("Arenas." + getName() + ".Lobby.Spawn" + ".World")),
-                    this.plugin.arenas.getDouble("Arenas." + getName() + ".Lobby.Spawn" + ".X"),
-                    this.plugin.arenas.getDouble("Arenas." + getName() + ".Lobby.Spawn" + ".Y"),
-                    this.plugin.arenas.getDouble("Arenas." + getName() + ".Lobby.Spawn" + ".Z"));
-            loc.setPitch((float) this.plugin.arenas.getDouble("Arenas." + getName() + ".Lobby.Spawn" + ".Pitch"));
-            loc.setYaw((float) this.plugin.arenas.getDouble("Arenas." + getName() + ".Lobby.Spawn" + ".Yaw"));
-            return loc;
-        }
-        return null;
     }
 
     public boolean isOn() {

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019 Ursin Filli
+ * Copyright (c) 2019 - 2020 Ursin Filli
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,9 +23,9 @@
  *
  */
 
-package net.crazycraftland.spigot.oitc.utils;
+package dev.ursinn.spigot.oitc.utils;
 
-import net.crazycraftland.spigot.oitc.OITC;
+import dev.ursinn.spigot.oitc.OITC;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 

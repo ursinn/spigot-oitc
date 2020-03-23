@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019 Ursin Filli
+ * Copyright (c) 2019 - 2020 Ursin Filli
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,14 +23,14 @@
  *
  */
 
-package net.crazycraftland.spigot.oitc.listeners;
+package dev.ursinn.spigot.oitc.listeners;
 
-import net.crazycraftland.spigot.oitc.OITC;
-import net.crazycraftland.spigot.oitc.arena.Arena;
-import net.crazycraftland.spigot.oitc.arena.Arenas;
-import net.crazycraftland.spigot.oitc.arena.LeaveReason;
-import net.crazycraftland.spigot.oitc.utils.MessageEnum;
-import net.crazycraftland.spigot.oitc.utils.Methods;
+import dev.ursinn.spigot.oitc.OITC;
+import dev.ursinn.spigot.oitc.arena.Arena;
+import dev.ursinn.spigot.oitc.arena.Arenas;
+import dev.ursinn.spigot.oitc.arena.LeaveReason;
+import dev.ursinn.spigot.oitc.utils.MessageEnum;
+import dev.ursinn.spigot.oitc.utils.Methods;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019 Ursin Filli
+ * Copyright (c) 2019 - 2020 Ursin Filli
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,11 +23,11 @@
  *
  */
 
-package net.crazycraftland.spigot.oitc.utils;
+package dev.ursinn.spigot.oitc.utils;
 
-import net.crazycraftland.spigot.oitc.OITC;
-import net.crazycraftland.spigot.oitc.arena.Arena;
-import net.crazycraftland.spigot.oitc.arena.Arenas;
+import dev.ursinn.spigot.oitc.OITC;
+import dev.ursinn.spigot.oitc.arena.Arena;
+import dev.ursinn.spigot.oitc.arena.Arenas;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -166,6 +166,19 @@ public class Methods {
         return Material.getMaterial("LEGACY_WOOD_SWORD");
     }
 
+    public static Location getLobby() {
+        if (plugin.arenas.contains("LobbySpawn.World")) {
+            Location loc = new Location(Bukkit.getWorld(plugin.arenas.getString("LobbySpawn.World")),
+                    plugin.arenas.getDouble("LobbySpawn.X"),
+                    plugin.arenas.getDouble("LobbySpawn.Y"),
+                    plugin.arenas.getDouble("LobbySpawn.Z"));
+            loc.setPitch((float) plugin.arenas.getDouble("LobbySpawn.Pitch"));
+            loc.setYaw((float) plugin.arenas.getDouble("LobbySpawn.Yaw"));
+            return loc;
+        }
+        return null;
+    }
+
     public static void setLobby(Location loc) {
         if (!plugin.arenas.contains("LobbySpawn")) {
             plugin.arenas.addDefault("LobbySpawn.X", loc.getX());
@@ -184,19 +197,6 @@ public class Methods {
         }
 
         saveYamls();
-    }
-
-    public static Location getLobby() {
-        if (plugin.arenas.contains("LobbySpawn.World")) {
-            Location loc = new Location(Bukkit.getWorld(plugin.arenas.getString("LobbySpawn.World")),
-                    plugin.arenas.getDouble("LobbySpawn.X"),
-                    plugin.arenas.getDouble("LobbySpawn.Y"),
-                    plugin.arenas.getDouble("LobbySpawn.Z"));
-            loc.setPitch((float) plugin.arenas.getDouble("LobbySpawn.Pitch"));
-            loc.setYaw((float) plugin.arenas.getDouble("LobbySpawn.Yaw"));
-            return loc;
-        }
-        return null;
     }
 
     public static void addToList(Arena arena) {
@@ -229,6 +229,12 @@ public class Methods {
         }
     }
 
+    public static String getNmsVersion() {
+        String ver = Bukkit.getServer().getClass().getPackage().getName();
+        ver = ver.substring(ver.lastIndexOf('.') + 1);
+        return ver;
+    }
+
     public void loadYamls() {
         try {
             plugin.arenas.load(plugin.arenasFile);
@@ -253,12 +259,6 @@ public class Methods {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public static String getNmsVersion() {
-        String ver = Bukkit.getServer().getClass().getPackage().getName();
-        ver = ver.substring(ver.lastIndexOf('.') + 1);
-        return ver;
     }
 
 }

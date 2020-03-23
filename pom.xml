@@ -2,7 +2,7 @@
 <!--
   ~ MIT License
   ~
-  ~ Copyright (c) 2019 Ursin Filli
+  ~ Copyright (c) 2019 - 2020 Ursin Filli
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -24,14 +24,14 @@
   ~
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.crazycraftland.spigot</groupId>
+    <groupId>dev.ursinn.spigot</groupId>
     <artifactId>OITC</artifactId>
-    <version>1.6</version>
+    <version>1.7.0</version>
     <packaging>jar</packaging>
 
     <name>OITC</name>
@@ -40,7 +40,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <url>https://dev.CrazyCraftLand.net/Spigot/OITC</url>
+    <url>URL</url>
 
     <build>
         <defaultGoal>clean package</defaultGoal>
@@ -63,7 +63,7 @@
                         <relocation>
                             <pattern>org.bstats</pattern>
                             <!-- Replace this with your package! -->
-                            <shadedPattern>net.crazycraftland.spigot.oitc.utils</shadedPattern>
+                            <shadedPattern>dev.ursinn.spigot.oitc.utils</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
@@ -98,8 +98,12 @@
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
         <repository>
+            <id>nexus.filli-it.ch</id>
+            <url>https://nexus.filli-it.ch/repository/maven-public/</url>
+        </repository>
+        <repository>
             <id>CodeMC</id>
-            <url>https://repo.codemc.org/repository/maven-public</url>
+            <url>https://repo.codemc.org/repository/maven-public/</url>
         </repository>
     </repositories>
 
@@ -117,4 +121,15 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>nexus.filli-it.ch</id>
+            <url>https://nexus.filli-it.ch/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus.filli-it.ch</id>
+            <url>https://nexus.filli-it.ch/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>

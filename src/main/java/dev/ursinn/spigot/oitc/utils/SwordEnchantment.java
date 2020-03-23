@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019 Ursin Filli
+ * Copyright (c) 2019 - 2020 Ursin Filli
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,13 +23,29 @@
  *
  */
 
-package net.crazycraftland.spigot.oitc.arena;
+package dev.ursinn.spigot.oitc.utils;
 
-public enum GameState {
+import org.bukkit.enchantments.Enchantment;
 
-    LOBBY,
-    INGAME,
-    STARTING,
-    STOPPING
+public class SwordEnchantment {
 
+    private Enchantment enchantment;
+    private int level;
+
+    public SwordEnchantment(Enchantment enchantment, int level) {
+        this.enchantment = enchantment;
+        this.level = level;
+    }
+
+    public Enchantment getEnchantment() {
+        return enchantment;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public boolean isIgnore() {
+        return true;
+    }
 }
