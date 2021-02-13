@@ -1,10 +1,13 @@
-DEPRECATED: OITC
-====
+# DEPRECATED: OITC
 
-[![Build Status](https://img.shields.io/travis/com/ursinn/Spigot-OITC?logo=travis)](https://travis-ci.com/ursinn/Spigot-OITC)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![GitHub release](https://img.shields.io/github/release/ursinn/Spigot-OITC.svg?logo=github)](https://github.com/ursinn/Spigot-OITC/releases/latest)
-[![GitHub All Releases](https://img.shields.io/github/downloads/ursinn/Spigot-OITC/total.svg?logo=github)](https://github.com/ursinn/Spigot-OITC/releases)
+[![Build Status Travis Master](https://img.shields.io/travis/com/ursinn/spigot-oitc/master?logo=travis&label=build%20master)](https://travis-ci.com/ursinn/spigot-oitc)
+[![Build Status Travis Develop](https://img.shields.io/travis/com/ursinn/spigot-oitc/develop?logo=travis&label=build%20develop)](https://travis-ci.com/ursinn/spigot-oitc)
+[![Build Status Jenkins Main](https://img.shields.io/jenkins/build?jobUrl=https%3A%2F%2Fci.ursinn.dev%2Fjob%2Fursinn%2Fjob%2Fspigot-oitc%2Fjob%2Fmain%2F&label=build%20master&logo=jenkins)](https://ci.ursinn.dev/job/ursinn/job/spigot-oitc)
+[![Build Status Jenkins Develop](https://img.shields.io/jenkins/build?jobUrl=https%3A%2F%2Fci.ursinn.dev%2Fjob%2Fursinn%2Fjob%2Fspigot-oitc%2Fjob%2Fdevelop%2F&label=build%20develop&logo=jenkins)](https://ci.ursinn.dev/job/ursinn/job/spigot-oitc)
+
+[![License: MIT](https://img.shields.io/github/license/ursinn/spigot-oitc)](https://opensource.org/licenses/MIT)
+[![GitHub release](https://img.shields.io/github/release/ursinn/spigot-oitc.svg?logo=github)](https://github.com/ursinn/spigot-oitc/releases/latest)
+[![GitHub All Releases](https://img.shields.io/github/downloads/ursinn/spigot-oitc/total.svg?logo=github)](https://github.com/ursinn/spigot-oitc/releases)
 
 ## **Features**
 
