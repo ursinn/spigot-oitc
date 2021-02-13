@@ -10,7 +10,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-				sh 'mvn clean package -Djar.finalName=OITC-#${BUILD_NUMBER}'
+				sh 'mvn clean package -Djar.finalName=OITC-${GIT_BRANCH#*/}-#${BUILD_NUMBER}'
 			}
 			post {
 				success {
