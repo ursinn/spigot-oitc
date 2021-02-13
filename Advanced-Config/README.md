@@ -1,4 +1,5 @@
 ## Options
+
 ``` yaml
 BungeeMode: false 		# Use BungeeCord / Singel Arena Mode
 Metrics: true     		# Use Metrics
@@ -40,6 +41,7 @@ Bow:				      	  # Bow Options
 ```
 
 ## Config
+
 ``` yaml
 test:                 	# Arena Name
   Countdown: 15       	# see Configuration Help
