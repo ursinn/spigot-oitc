@@ -30,34 +30,34 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>dev.ursinn.spigot</groupId>
-    <artifactId>OITC</artifactId>
-    <version>1.7.0</version>
+    <artifactId>oitc</artifactId>
+    <version>1.6-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>OITC</name>
-
     <description>One in the Camber</description>
+    <url>https://github.com/ursinn/spigot-oitc</url>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
     </properties>
-    <url>URL</url>
 
     <build>
         <defaultGoal>clean package</defaultGoal>
         <plugins>
+            <!-- Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
             </plugin>
+            <!-- Shade Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.2</version>
+                <version>3.2.4</version>
                 <configuration>
                     <relocations>
                         <relocation>
@@ -89,31 +89,32 @@
     </build>
 
     <repositories>
+        <!-- Spigot -->
+        <!--        <repository>-->
+        <!--            <id>spigotmc-repo</id>-->
+        <!--            <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>-->
+        <!--        </repository>-->
+        <!-- bStats -->
+        <!--        <repository>-->
+        <!--            <id>codemc-repo</id>-->
+        <!--            <url>https://repo.codemc.org/repository/maven-public/</url>-->
+        <!--        </repository>-->
+        <!-- Mirror -->
         <repository>
-            <id>spigotmc-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
-        </repository>
-        <repository>
-            <id>sonatype</id>
-            <url>https://oss.sonatype.org/content/groups/public/</url>
-        </repository>
-        <repository>
-            <id>nexus.filli-it.ch</id>
-            <url>https://nexus.filli-it.ch/repository/maven-public/</url>
-        </repository>
-        <repository>
-            <id>CodeMC</id>
-            <url>https://repo.codemc.org/repository/maven-public/</url>
+            <id>ursinn-repo</id>
+            <url>https://repo.ursinn.dev/repository/maven-public/</url>
         </repository>
     </repositories>
 
     <dependencies>
+        <!-- Spigot -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>1.8.8-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+        <!-- bStats -->
         <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
@@ -124,12 +125,12 @@
 
     <distributionManagement>
         <repository>
-            <id>nexus.filli-it.ch</id>
-            <url>https://nexus.filli-it.ch/repository/maven-releases/</url>
+            <id>ursinn-repo</id>
+            <url>https://repo.ursinn.dev/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
-            <id>nexus.filli-it.ch</id>
-            <url>https://nexus.filli-it.ch/repository/maven-snapshots/</url>
+            <id>ursinn-repo</id>
+            <url>https://repo.ursinn.dev/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 </project>
