@@ -119,43 +119,6 @@
     </dependencies>
 
     <build>
-        <plugins>
-            <!-- Shade Plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
-                <configuration>
-                    <relocations>
-                        <relocation>
-                            <pattern>org.bstats</pattern>
-                            <!-- Replace this with your package! -->
-                            <shadedPattern>dev.ursinn.spigot.oitc.utils</shadedPattern>
-                        </relocation>
-                    </relocations>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <minimizeJar>true</minimizeJar>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-    </build>
-
-    <build>
         <defaultGoal>clean package</defaultGoal>
         <finalName>${project.artifactId}-${ci.build.version}</finalName>
         <pluginManagement>
@@ -170,6 +133,15 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-shade-plugin</artifactId>
                     <version>3.2.4</version>
+                    <configuration>
+                        <relocations>
+                            <relocation>
+                                <pattern>org.bstats</pattern>
+                                <!-- Replace this with your package! -->
+                                <shadedPattern>dev.ursinn.spigot.oitc.utils</shadedPattern>
+                            </relocation>
+                        </relocations>
+                    </configuration>
                     <executions>
                         <execution>
                             <phase>package</phase>
@@ -287,6 +259,12 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
 
     <profiles>
