@@ -71,7 +71,7 @@
         <dependency.bukkit.version>1.8.8-R0.1-SNAPSHOT</dependency.bukkit.version>
         <!-- Dependency Versions [Annotation] -->
         <dependency.jsr305.version>3.0.2</dependency.jsr305.version>
-        <dependency.lombok.version>1.18.20</dependency.lombok.version>
+        <dependency.lombok.version>1.18.22</dependency.lombok.version>
     </properties>
 
     <repositories>
