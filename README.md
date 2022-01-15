@@ -11,8 +11,6 @@
 [![GitHub release](https://img.shields.io/github/release/ursinn/spigot-oitc.svg?logo=github&style=for-the-badge)](https://github.com/ursinn/spigot-oitc/releases/latest)
 [![GitHub All Releases](https://img.shields.io/github/downloads/ursinn/spigot-oitc/total.svg?logo=github&style=for-the-badge)](https://github.com/ursinn/spigot-oitc/releases)
 
----
-
 ## **Features**
 
 * Join signs!
