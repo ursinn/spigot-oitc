@@ -1,13 +1,17 @@
 # DEPRECATED: OITC
 
-[![Build Status Travis Main](https://img.shields.io/travis/com/ursinn/spigot-oitc/main?logo=travis&label=build%20main)](https://travis-ci.com/ursinn/spigot-oitc)
-[![Build Status Travis Develop](https://img.shields.io/travis/com/ursinn/spigot-oitc/develop?logo=travis&label=build%20develop)](https://travis-ci.com/ursinn/spigot-oitc)
-[![Build Status Jenkins Main](https://img.shields.io/jenkins/build?jobUrl=https%3A%2F%2Fci.ursinn.dev%2Fjob%2Fursinn%2Fjob%2Fspigot-oitc%2Fjob%2Fmain%2F&label=build%20main&logo=jenkins)](https://ci.ursinn.dev/job/ursinn/job/spigot-oitc)
-[![Build Status Jenkins Develop](https://img.shields.io/jenkins/build?jobUrl=https%3A%2F%2Fci.ursinn.dev%2Fjob%2Fursinn%2Fjob%2Fspigot-oitc%2Fjob%2Fdevelop%2F&label=build%20develop&logo=jenkins)](https://ci.ursinn.dev/job/ursinn/job/spigot-oitc)
+<!--
+[![Jenkins](https://img.shields.io/jenkins/build?jobUrl=https%3A%2F%2Fci.ursinn.dev%2Fjob%2Fursinn%2Fjob%2Fspigot-oitc&logo=jenkins&style=for-the-badge)](https://ci.ursinn.dev/job/ursinn/job/spigot-oitc)
+-->
+[![GitHub last commit](https://img.shields.io/github/last-commit/ursinn/spigot-oitc?logo=github&style=for-the-badge)](https://github.com/ursinn/spigot-oitc/commits)
+[![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/ursinn/spigot-oitc?logo=codeclimate&style=for-the-badge)](https://codeclimate.com/github/ursinn/spigot-oitc)
+[![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/ursinn/spigot-oitc?logo=snyk&style=for-the-badge)](https://snyk.io/test/github/ursinn/spigot-oitc)
+[![License](https://img.shields.io/github/license/ursinn/spigot-oitc?style=for-the-badge)](https://github.com/ursinn/spigot-oitc/blob/main/LICENSE)
 
-[![License: MIT](https://img.shields.io/github/license/ursinn/spigot-oitc)](https://opensource.org/licenses/MIT)
-[![GitHub release](https://img.shields.io/github/release/ursinn/spigot-oitc.svg?logo=github)](https://github.com/ursinn/spigot-oitc/releases/latest)
-[![GitHub All Releases](https://img.shields.io/github/downloads/ursinn/spigot-oitc/total.svg?logo=github)](https://github.com/ursinn/spigot-oitc/releases)
+[![GitHub release](https://img.shields.io/github/release/ursinn/spigot-oitc.svg?logo=github&style=for-the-badge)](https://github.com/ursinn/spigot-oitc/releases/latest)
+[![GitHub All Releases](https://img.shields.io/github/downloads/ursinn/spigot-oitc/total.svg?logo=github&style=for-the-badge)](https://github.com/ursinn/spigot-oitc/releases)
+
+---
 
 ## **Features**
 
