@@ -1,10 +1,10 @@
 name: OITC
-version: ${project.version}
+version: '${version}'
 main: dev.ursinn.spigot.oitc.OITC
 prefix: OITC
 authors: [ ursinn, artish1 ]
-description: ${project.description}
-website: ${project.url}
+description: One in the Camber
+website: https://github.com/ursinn/spigot-oitc
 commands:
   oitc:
     description: The main command for OITC(One in the Chamber)
